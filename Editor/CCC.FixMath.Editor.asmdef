@@ -1,0 +1,21 @@
+{
+    "name": "CCC.FixMath.Editor",
+    "references": [
+        "GUID:c886ee09f9545f74f85dd4e7b076b17c",
+        "GUID:7e29b333690cedd478380f8826492a9c",
+        "GUID:737e1c04c3dd3e046bedb5be72aec1d7",
+        "GUID:7a8d7696eb7a56745b9cdb92a8a28234",
+        "GUID:807be9350277eff4182cd3600de41d3a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
