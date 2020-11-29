@@ -1,8 +1,5 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using CCC.Editor;
-using Unity.Properties.Adapters;
-using Unity.Properties;
 
 [CustomPropertyDrawer(typeof(fix))]
 public class Fix64Drawer : PropertyDrawer
@@ -38,24 +35,5 @@ public class Fix64Drawer : PropertyDrawer
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         return 18;
-    }
-}
-
-[CustomEntityPropertyDrawer]
-public class Fix64EntityDrawer : IMGUIAdapter,
-        IVisit<fix>
-{
-    VisitStatus IVisit<fix>.Visit<TContainer>(Property<TContainer, fix> property, ref TContainer container, ref fix value)
-    {
-        float oldValue = (float)value;
-
-        float newValue = EditorGUILayout.FloatField(GetDisplayName(property), oldValue);
-
-        if (!newValue.Equals(oldValue) && !Application.isPlaying) // we do not support runtime changes due to loss of precision
-        {
-            value = (fix)newValue;
-        }
-
-        return VisitStatus.Stop;
     }
 }
