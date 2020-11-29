@@ -1,7 +1,7 @@
 {
   "name": "com.unity-x.fixmath",
   "displayName": "Fix Math",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "unity": "2020.1",
   "description": "A fixed-point math library similar to unity.mathematics.",
   "keywords": [
