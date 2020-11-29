@@ -1,13 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.ComponentModel;
+﻿using System;
 using Unity.Mathematics;
 
 /// <summary>
 /// Provides XNA-like 3D vector math.
 /// </summary>
 [Serializable]
-[JsonObject(IsReference = false)]
 public struct fix3 : IEquatable<fix3>
 {
     /// <summary>

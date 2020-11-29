@@ -1,19 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 
 /// <summary>
 /// Represents a Q31.32 fixed-point number.
 /// </summary>
 [Serializable]
-[DataContract(IsReference = false)]
-[JsonObject(IsReference = false, ItemIsReference = false)]
 public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
 {
     [UnityEngine.SerializeField]
-    [DataMember]
     public long RawValue; // should be read-only but we leave it like that for unity serialization
 
     // Precision of this type is 2^-32, that is 2,3283064365386962890625E-10

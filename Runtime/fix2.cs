@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Runtime.Serialization;
+﻿using System;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -8,7 +6,6 @@ using UnityEngine;
 /// Provides XNA-like 2D vector math.
 /// </summary>
 [Serializable]
-[JsonObject(IsReference =false)]
 public struct fix2 : IEquatable<fix2>
 {
     /// <summary>
