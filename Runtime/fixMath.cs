@@ -210,6 +210,12 @@ public static partial class fixMath
         return atan2(v.y, v.x);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix angle2d(fixQuaternion v)
+    {
+        return fixQuaternion.EulerZ(v);
+    }
+
     /// <summary>
     /// Returns 2 raised to the specified power.
     /// Provides at least 6 decimals of accuracy.

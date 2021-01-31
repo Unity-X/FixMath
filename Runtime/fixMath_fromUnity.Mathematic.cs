@@ -297,6 +297,24 @@ public static partial class fixMath
     public static fix4 sin(fix4 x) { return new fix4(sin(x.x), sin(x.y), sin(x.z), sin(x.w)); }
 
 
+    // ASIN IS NOT IMPLEMENTED YET
+    ///// <summary>Returns the arcsine of a fix value.</summary>
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //public static fix asin(fix x) { return (fix)global::fix.ASin((fix)x); }
+
+    ///// <summary>Returns the componentwise arcsine of a fix2 vector.</summary>
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //public static fix2 asin(fix2 x) { return new fix2(asin(x.x), asin(x.y)); }
+
+    ///// <summary>Returns the componentwise arcsine of a fix3 vector.</summary>
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //public static fix3 asin(fix3 x) { return new fix3(asin(x.x), asin(x.y), asin(x.z)); }
+
+    ///// <summary>Returns the componentwise arcsine of a fix4 vector.</summary>
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //public static fix4 asin(fix4 x) { return new fix4(asin(x.x), asin(x.y), asin(x.z), asin(x.w)); }
+
+
     /// <summary>Returns the result of rounding a fix value up to the nearest integral value less or equal to the original value.</summary>
     public static fix floor(fix x) { return global::fix.Floor(x); }
 

@@ -861,6 +861,34 @@ public struct fixQuaternion : IEquatable<fixQuaternion>
         Concatenate(in rotation, in basisInverse, out localRotation);
     }
 
+    public static fix EulerX(fixQuaternion q)
+    {
+        fix sinr_cosp = 2 * (q.w * q.x + q.y * q.z);
+        fix cosr_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
+        return fixMath.atan2(sinr_cosp, cosr_cosp);
+    }
+
+    //public static fix EulerY(fixQuaternion q)
+    //{
+    //    fix sinp = 2 * (q.w * q.y - q.z * q.x);
+    //    if (fixMath.abs(sinp) >= 1)
+    //        return fixMath.PI / 2 * fixMath.sign(sinp); // use 90 degrees if out of range
+    //    else
+    //        return fixMath.asin(sinp);
+    //}
+
+    public static fix EulerZ(fixQuaternion q)
+    {
+        fix siny_cosp = 2 * (q.w * q.z + q.x * q.y);
+        fix cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+        return fixMath.atan2(siny_cosp, cosy_cosp);
+    }
+
+    //public static fix3 CoputeAngles(fixQuaternion q)
+    //{
+    //    return new fix3(EulerX(q), EulerY(q), EulerZ(q));
+    //}
+
     /// <summary>
     /// Gets a string representation of the quaternion.
     /// </summary>
