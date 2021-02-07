@@ -367,10 +367,10 @@ public struct FixRandom
     public fix NextFix() => NextFixRatio() * fix.MaxValue;
 
     /// <summary> Returns a value between 0 and max</summary>
-    public fix NextFix(in fix max) => NextFixRatio() * max;
+    public fix NextFix(fix max) => NextFixRatio() * max;
 
     /// <summary> Returns a value between min and max</summary>
-    public fix NextFix(in fix min, in fix max) => (NextFixRatio() * (max - min)) + min;
+    public fix NextFix(fix min,  fix max) => (NextFixRatio() * (max - min)) + min;
 
     /// <summary> Returns a value between 0 and max (exclusive)</summary>
     public int NextInt(int max) => (int)NextFix(new fix(max));

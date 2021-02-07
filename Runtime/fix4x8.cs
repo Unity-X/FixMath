@@ -4,7 +4,7 @@ static class fix4x8
 {
     [ThreadStatic] private static fix[,] FixMatrix;
 
-    public static bool Invert(in fix4x4 m, out fix4x4 r)
+    public static bool Invert(fix4x4 m, out fix4x4 r)
     {
         if (FixMatrix == null)
             FixMatrix = new fix[4, 8];

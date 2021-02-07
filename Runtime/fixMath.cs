@@ -35,7 +35,7 @@ public static partial class fixMath
     /// <param name="dividend">Dividend</param>
     /// <param name="divisor">Divisor</param>
     /// <returns>Remainder</returns>
-    internal static fix IEEERemainder(in fix dividend, in fix divisor)
+    internal static fix IEEERemainder(fix dividend,  fix divisor)
     {
         return dividend - (divisor * global::fix.Round(dividend / divisor));
     }
@@ -68,7 +68,7 @@ public static partial class fixMath
     /// <param name="min">Minimum value.  If the value is less than this, the minimum is returned instead.</param>
     /// <param name="max">Maximum value.  If the value is more than this, the maximum is returned instead.</param>
     /// <returns>Clamped value.</returns>
-    internal static fix Clamp(in fix value, in fix min, in fix max)
+    internal static fix Clamp(fix value,  fix min,  fix max)
     {
         if (value < min)
             return min;
@@ -83,7 +83,7 @@ public static partial class fixMath
     /// <param name="a">First value.</param>
     /// <param name="b">Second value.</param>
     /// <returns>Higher value of the two parameters.</returns>
-    internal static fix Max(in fix a, in fix b)
+    internal static fix Max(fix a,  fix b)
     {
         return a > b ? a : b;
     }
@@ -94,7 +94,7 @@ public static partial class fixMath
     /// <param name="a">First value.</param>
     /// <param name="b">Second value.</param>
     /// <returns>Lower value of the two parameters.</returns>
-    internal static fix Min(in fix a, in fix b)
+    internal static fix Min(fix a,  fix b)
     {
         return a < b ? a : b;
     }
@@ -104,7 +104,7 @@ public static partial class fixMath
     /// </summary>
     /// <param name="degrees">Degrees to convert.</param>
     /// <returns>Radians equivalent to the input degrees.</returns>
-    internal static fix ToRadians(in fix degrees)
+    internal static fix ToRadians(fix degrees)
     {
         return degrees * (Pi / F64.C180);
     }
@@ -114,24 +114,24 @@ public static partial class fixMath
     /// </summary>
     /// <param name="radians">Radians to convert.</param>
     /// <returns>Degrees equivalent to the input radians.</returns>
-    internal static fix ToDegrees(in fix radians)
+    internal static fix ToDegrees(fix radians)
     {
         return radians * (F64.C180 / Pi);
     }
 
-    public static bool3 almostEqual(in fix3 a, in fix3 b) => almostEqual(a, b, fix(0.0001));
-    public static bool2 almostEqual(in fix2 a, in fix2 b) => almostEqual(a, b, fix(0.0001));
-    public static bool almostEqual(in fix a, in fix b) => almostEqual(a, b, fix(0.0001));
+    public static bool3 almostEqual(fix3 a,  fix3 b) => almostEqual(a, b, fix(0.0001));
+    public static bool2 almostEqual(fix2 a,  fix2 b) => almostEqual(a, b, fix(0.0001));
+    public static bool almostEqual(fix a,  fix b) => almostEqual(a, b, fix(0.0001));
 
-    public static bool3 almostEqual(in fix3 a, in fix3 b, in fix epsilon)
+    public static bool3 almostEqual(fix3 a,  fix3 b,  fix epsilon)
     {
         return bool3(almostEqual(a.x, b.x, epsilon), almostEqual(a.y, b.y, epsilon), almostEqual(a.z, b.z, epsilon));
     }
-    public static bool2 almostEqual(in fix2 a, in fix2 b, in fix epsilon)
+    public static bool2 almostEqual(fix2 a,  fix2 b,  fix epsilon)
     {
         return bool2(almostEqual(a.x, b.x, epsilon), almostEqual(a.y, b.y, epsilon));
     }
-    public static bool almostEqual(in fix a, in fix b, in fix epsilon)
+    public static bool almostEqual(fix a,  fix b,  fix epsilon)
     {
         return length(a - b) < epsilon;
     }
@@ -148,53 +148,53 @@ public static partial class fixMath
     public static fix fix(double value)                             => (fix)value;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix2 fix2(in fix v)                                => new fix2(v, v);
+    public static fix2 fix2(fix v)                                => new fix2(v, v);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(in fix v)                                => new fix3(v, v, v);
+    public static fix3 fix3(fix v)                                => new fix3(v, v, v);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix4 fix4(in fix v)                                => new fix4(v, v, v, v);
+    public static fix4 fix4(fix v)                                => new fix4(v, v, v, v);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix2 fix2(in fix x, in fix y)                      => new fix2(x, y);
+    public static fix2 fix2(fix x,  fix y)                      => new fix2(x, y);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(in fix x, in fix y, in fix z)            => new fix3(x, y, z);
+    public static fix3 fix3(fix x,  fix y,  fix z)            => new fix3(x, y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix4 fix4(in fix x, in fix y, in fix z, in fix w)  => new fix4(x, y, z, w);
+    public static fix4 fix4(fix x,  fix y,  fix z,  fix w)  => new fix4(x, y, z, w);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix2 fix2(in int x, in int y)                      => new fix2(x, y);
+    public static fix2 fix2(int x,  int y)                      => new fix2(x, y);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(in int x, in int y, in int z)            => new fix3(x, y, z);
+    public static fix3 fix3(int x,  int y,  int z)            => new fix3(x, y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix4 fix4(in int x, in int y, in int z, in int w)  => new fix4(x, y, z, w);
+    public static fix4 fix4(int x,  int y,  int z,  int w)  => new fix4(x, y, z, w);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(in fix2 xy, in fix z)                    => new fix3(xy.x, xy.y, z);
+    public static fix3 fix3(fix2 xy,  fix z)                    => new fix3(xy.x, xy.y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(in fix x, in fix2 yz)                    => new fix3(x, yz.x, yz.y);
+    public static fix3 fix3(fix x,  fix2 yz)                    => new fix3(x, yz.x, yz.y);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(in fix2 xy, in int z)                    => new fix3(xy.x, xy.y, z);
+    public static fix3 fix3(fix2 xy,  int z)                    => new fix3(xy.x, xy.y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(in int x, in fix2 yz)                    => new fix3(x, yz.x, yz.y);
+    public static fix3 fix3(int x,  fix2 yz)                    => new fix3(x, yz.x, yz.y);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(in int2 xy, in int z)                    => new fix3(xy.x, xy.y, z);
+    public static fix3 fix3(int2 xy,  int z)                    => new fix3(xy.x, xy.y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(in int x, in int2 yz)                    => new fix3(x, yz.x, yz.y);
+    public static fix3 fix3(int x,  int2 yz)                    => new fix3(x, yz.x, yz.y);
 
-    public static int  roundToInt(in fix v)  =>      global::fix.RoundToInt(v);
-    public static int2 roundToInt(in fix2 v) => int2(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y));
-    public static int3 roundToInt(in fix3 v) => int3(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z));
-    public static int4 roundToInt(in fix4 v) => int4(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z), global::fix.RoundToInt(v.w));
+    public static int  roundToInt(fix v)  =>      global::fix.RoundToInt(v);
+    public static int2 roundToInt(fix2 v) => int2(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y));
+    public static int3 roundToInt(fix3 v) => int3(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z));
+    public static int4 roundToInt(fix4 v) => int4(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z), global::fix.RoundToInt(v.w));
     
-    public static int  floorToInt(in fix v)  =>      global::fix.FloorToInt(v);
-    public static int2 floorToInt(in fix2 v) => int2(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y));
-    public static int3 floorToInt(in fix3 v) => int3(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y), global::fix.FloorToInt(v.z));
-    public static int4 floorToInt(in fix4 v) => int4(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y), global::fix.FloorToInt(v.z), global::fix.FloorToInt(v.w));
+    public static int  floorToInt(fix v)  =>      global::fix.FloorToInt(v);
+    public static int2 floorToInt(fix2 v) => int2(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y));
+    public static int3 floorToInt(fix3 v) => int3(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y), global::fix.FloorToInt(v.z));
+    public static int4 floorToInt(fix4 v) => int4(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y), global::fix.FloorToInt(v.z), global::fix.FloorToInt(v.w));
     
-    public static int  ceilToInt(in fix v)  =>      global::fix.CeilingToInt(v);
-    public static int2 ceilToInt(in fix2 v) => int2(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y));
-    public static int3 ceilToInt(in fix3 v) => int3(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y), global::fix.CeilingToInt(v.z));
-    public static int4 ceilToInt(in fix4 v) => int4(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y), global::fix.CeilingToInt(v.z), global::fix.CeilingToInt(v.w));
+    public static int  ceilToInt(fix v)  =>      global::fix.CeilingToInt(v);
+    public static int2 ceilToInt(fix2 v) => int2(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y));
+    public static int3 ceilToInt(fix3 v) => int3(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y), global::fix.CeilingToInt(v.z));
+    public static int4 ceilToInt(fix4 v) => int4(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y), global::fix.CeilingToInt(v.z), global::fix.CeilingToInt(v.w));
 
     public static fix lengthmanhattan(fix2 v) => abs(v.x) +abs(v.y);
     public static fix lengthmanhattan(fix3 v) => abs(v.x) + abs(v.y) + abs(v.z);
@@ -284,20 +284,20 @@ public static partial class fixMath
     //public static fix4 rsqrt(fix4 x) { return fix4(1) / sqrt(x); }
 
 
-    //public static fix length(in fix2 v)   => v.length;
-    //public static fix length(in fix3 v)   => v.length;
-    //public static fix length(in fix4 v)   => v.length;
-    //public static fix lengthsq(in fix2 v) => v.lengthSquared;
-    //public static fix lengthsq(in fix3 v) => v.lengthSquared;
-    //public static fix lengthsq(in fix4 v) => v.lengthSquared;
+    //public static fix length(fix2 v)   => v.length;
+    //public static fix length(fix3 v)   => v.length;
+    //public static fix length(fix4 v)   => v.length;
+    //public static fix lengthsq(fix2 v) => v.lengthSquared;
+    //public static fix lengthsq(fix3 v) => v.lengthSquared;
+    //public static fix lengthsq(fix4 v) => v.lengthSquared;
 
-    //public static fix2 normalize(in fix2 v) => global::fix2.Normalize(v);
-    //public static fix3 normalize(in fix3 v) => global::fix3.Normalize(v);
-    //public static fix4 normalize(in fix4 v) => global::fix4.Normalize(v);
+    //public static fix2 normalize(fix2 v) => global::fix2.Normalize(v);
+    //public static fix3 normalize(fix3 v) => global::fix3.Normalize(v);
+    //public static fix4 normalize(fix4 v) => global::fix4.Normalize(v);
 
-    //public static fix  round(in fix v)  =>      global::fix.Round(v);
-    //public static fix2 round(in fix2 v) => fix2(global::fix.Round(v.x), global::fix.Round(v.y));
-    //public static fix3 round(in fix3 v) => fix3(global::fix.Round(v.x), global::fix.Round(v.y), global::fix.Round(v.z));
-    //public static fix4 round(in fix4 v) => fix4(global::fix.Round(v.x), global::fix.Round(v.y), global::fix.Round(v.z), global::fix.Round(v.w));
+    //public static fix  round(fix v)  =>      global::fix.Round(v);
+    //public static fix2 round(fix2 v) => fix2(global::fix.Round(v.x), global::fix.Round(v.y));
+    //public static fix3 round(fix3 v) => fix3(global::fix.Round(v.x), global::fix.Round(v.y), global::fix.Round(v.z));
+    //public static fix4 round(fix4 v) => fix4(global::fix.Round(v.x), global::fix.Round(v.y), global::fix.Round(v.z), global::fix.Round(v.w));
 
 }

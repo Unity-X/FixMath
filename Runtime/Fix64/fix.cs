@@ -12,11 +12,12 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
     public long RawValue; // should be read-only but we leave it like that for unity serialization
 
     // Precision of this type is 2^-32, that is 2,3283064365386962890625E-10
-    public static decimal Precision => (decimal)(new fix(1L));//0.00000000023283064365386962890625m;
+    public static readonly fix epsilon = new fix(rawValue: 1L);
     public static fix MaxValue => new fix(MAX_VALUE);
     public static fix MinValue => new fix(MIN_VALUE);
     public static fix One => new fix(ONE);
     public static fix Zero => new fix();
+    public static readonly fix Zero2 = new fix();
     public static fix Half => new fix(HALF);
     /// <summary>
     /// The value of Pi
@@ -675,25 +676,26 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
     /// </summary>
     public static fix Sin(fix x)
     {
-        var clampedL = ClampSinValue(x.RawValue, out var flipHorizontal, out var flipVertical);
-        var clamped = new fix(clampedL);
+        long clampedL = ClampSinValue(x.RawValue, out var flipHorizontal, out var flipVertical);
+        fix clamped = new fix(clampedL);
 
         // Find the two closest values in the LUT and perform linear interpolation
         // This is what kills the performance of this function on x86 - x64 is fine though
-        var rawIndex = FastMul(clamped, LutInterval);
-        var roundedIndex = Round(rawIndex);
-        var indexError = FastSub(rawIndex, roundedIndex);
+        fix rawIndex = FastMul(clamped, LutInterval);
+        fix roundedIndex = Round(rawIndex);
+        int roundedIndexInt = (int)roundedIndex;
+        fix indexError = FastSub(rawIndex, roundedIndex);
 
-        var nearestValue = new fix(SinLut[flipHorizontal ?
-            SinLut.Length - 1 - (int)roundedIndex :
-            (int)roundedIndex]);
-        var secondNearestValue = new fix(SinLut[flipHorizontal ?
-            SinLut.Length - 1 - (int)roundedIndex - Sign(indexError) :
-            (int)roundedIndex + Sign(indexError)]);
+        fix nearestValue = new fix(SinLut[flipHorizontal ?
+            SinLut.Length - 1 - roundedIndexInt :
+            roundedIndexInt]);
+        fix secondNearestValue = new fix(SinLut[flipHorizontal ?
+            SinLut.Length - 1 - roundedIndexInt - Sign(indexError) :
+            roundedIndexInt + Sign(indexError)]);
 
-        var delta = FastMul(indexError, FastAbs(FastSub(nearestValue, secondNearestValue))).RawValue;
-        var interpolatedValue = nearestValue.RawValue + (flipHorizontal ? -delta : delta);
-        var finalValue = flipVertical ? -interpolatedValue : interpolatedValue;
+        long delta = FastMul(indexError, FastAbs(FastSub(nearestValue, secondNearestValue))).RawValue;
+        long interpolatedValue = nearestValue.RawValue + (flipHorizontal ? -delta : delta);
+        long finalValue = flipVertical ? -interpolatedValue : interpolatedValue;
         return new fix(finalValue);
     }
 

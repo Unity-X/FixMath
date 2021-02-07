@@ -31,7 +31,7 @@ public static class FixVectorExtensions
     /// <summary>
     /// Uses MaxLimit or MinLimit depending on the 'max' vector direction
     /// </summary>
-    public static fix2 LimitDirection(this in fix2 v, in fix2 max)
+    public static fix2 LimitDirection(this in fix2 v,  fix2 max)
     {
         fix x;
         fix y;
@@ -44,7 +44,7 @@ public static class FixVectorExtensions
     /// <summary>
     /// Uses MaxLimit or MinLimit depending on the 'max' vector direction
     /// </summary>
-    public static fix3 LimitDirection(this in fix3 v, in fix3 max)
+    public static fix3 LimitDirection(this in fix3 v,  fix3 max)
     {
         fix x;
         fix y;
@@ -60,14 +60,14 @@ public static class FixVectorExtensions
     /// <summary>
     /// Return a vector where each component is lower or equal to its equivalent in 'max'
     /// </summary>
-    public static fix2 MaxLimit(this in fix2 v, in fix2 max)
+    public static fix2 MaxLimit(this in fix2 v,  fix2 max)
     {
         return new fix2(fixMath.Min(v.x, max.x), fixMath.Min(v.y, max.y));
     }
     /// <summary>
     /// Return a vector where each component is lower or equal to its equivalent in 'max'
     /// </summary>
-    public static fix3 MaxLimit(this in fix3 v, in fix3 max)
+    public static fix3 MaxLimit(this in fix3 v,  fix3 max)
     {
         return new fix3(fixMath.Min(v.x, max.x), fixMath.Min(v.y, max.y), fixMath.Min(v.z, max.z));
     }
@@ -75,14 +75,14 @@ public static class FixVectorExtensions
     /// <summary>
     /// Return a vector where each component is higher or equal to its equivalent in 'max'
     /// </summary>
-    public static fix2 MinLimit(this in fix2 v, in fix2 min)
+    public static fix2 MinLimit(this in fix2 v,  fix2 min)
     {
         return new fix2(fixMath.Max(v.x, min.x), fixMath.Max(v.y, min.y));
     }
     /// <summary>
     /// Return a vector where each component is higher or equal to its equivalent in 'max'
     /// </summary>
-    public static fix3 MinLimit(this in fix3 v, in fix3 min)
+    public static fix3 MinLimit(this in fix3 v,  fix3 min)
     {
         return new fix3(fixMath.Max(v.x, min.x), fixMath.Max(v.y, min.y), fixMath.Max(v.z, min.z));
     }

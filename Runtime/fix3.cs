@@ -27,7 +27,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="x">X component of the vector.</param>
     /// <param name="y">Y component of the vector.</param>
     /// <param name="z">Z component of the vector.</param>
-    public fix3(in fix x, in fix y, in fix z)
+    public fix3(fix x,  fix y,  fix z)
     {
         this.x = x;
         this.y = y;
@@ -39,7 +39,7 @@ public struct fix3 : IEquatable<fix3>
     /// </summary>
     /// <param name="xy">X and Y components of the vector.</param>
     /// <param name="z">Z component of the vector.</param>
-    public fix3(in fix2 xy, in fix z)
+    public fix3(fix2 xy,  fix z)
     {
         this.x = xy.x;
         this.y = xy.y;
@@ -51,7 +51,7 @@ public struct fix3 : IEquatable<fix3>
     /// </summary>
     /// <param name="x">X component of the vector.</param>
     /// <param name="yz">Y and Z components of the vector.</param>
-    public fix3(in fix x, in fix2 yz)
+    public fix3(fix x,  fix2 yz)
     {
         this.x = x;
         this.y = yz.x;
@@ -61,7 +61,7 @@ public struct fix3 : IEquatable<fix3>
     /// <summary>
     /// Constructs a new three dimensional vector.
     /// </summary>
-    public fix3(in fix v)
+    public fix3(fix v)
     {
         this.x = v;
         this.y = v;
@@ -147,7 +147,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector in the product.</param>
     /// <param name="b">Second vector in the product.</param>
     /// <returns>Resulting dot product.</returns>
-    public static fix Dot(in fix3 a, in fix3 b)
+    public static fix Dot(fix3 a,  fix3 b)
     {
         return a.x * b.x + a.y * b.y + a.z * b.z;
     }
@@ -158,7 +158,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector in the product.</param>
     /// <param name="b">Second vector in the product.</param>
     /// <param name="product">Resulting dot product.</param>
-    public static void Dot(in fix3 a, in fix3 b, out fix product)
+    public static void Dot(fix3 a,  fix3 b, out fix product)
     {
         product = a.x * b.x + a.y * b.y + a.z * b.z;
     }
@@ -168,7 +168,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector to add.</param>
     /// <param name="b">Second vector to add.</param>
     /// <param name="sum">Sum of the two vectors.</param>
-    public static void Add(in fix3 a, in fix3 b, out fix3 sum)
+    public static void Add(fix3 a,  fix3 b, out fix3 sum)
     {
         sum.x = a.x + b.x;
         sum.y = a.y + b.y;
@@ -180,7 +180,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">Vector to subtract from.</param>
     /// <param name="b">Vector to subtract from the first vector.</param>
     /// <param name="difference">Result of the subtraction.</param>
-    public static void Subtract(in fix3 a, in fix3 b, out fix3 difference)
+    public static void Subtract(fix3 a,  fix3 b, out fix3 difference)
     {
         difference.x = a.x - b.x;
         difference.y = a.y - b.y;
@@ -192,7 +192,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="v">Vector to scale.</param>
     /// <param name="scale">Amount to scale.</param>
     /// <param name="result">Scaled vector.</param>
-    public static void Multiply(in fix3 v, in fix scale, out fix3 result)
+    public static void Multiply(fix3 v,  fix scale, out fix3 result)
     {
         result.x = v.x * scale;
         result.y = v.y * scale;
@@ -205,7 +205,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector to multiply.</param>
     /// <param name="b">Second vector to multiply.</param>
     /// <param name="result">Result of the componentwise multiplication.</param>
-    public static void Multiply(in fix3 a, in fix3 b, out fix3 result)
+    public static void Multiply(fix3 a,  fix3 b, out fix3 result)
     {
         result.x = a.x * b.x;
         result.y = a.y * b.y;
@@ -218,7 +218,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="v">Vector to divide.</param>
     /// <param name="divisor">Value to divide the vector's components.</param>
     /// <param name="result">Result of the division.</param>
-    public static void Divide(in fix3 v, in fix divisor, out fix3 result)
+    public static void Divide(fix3 v,  fix divisor, out fix3 result)
     {
         fix inverse = F64.C1 / divisor;
         result.x = v.x * inverse;
@@ -231,7 +231,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="v">Vector to scale.</param>
     /// <param name="f">Amount to scale.</param>
     /// <returns>Scaled vector.</returns>
-    public static fix3 operator *(in fix3 v, in fix f)
+    public static fix3 operator *(fix3 v,  fix f)
     {
         fix3 toReturn;
         toReturn.x = v.x * f;
@@ -246,7 +246,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="v">Vector to scale.</param>
     /// <param name="f">Amount to scale.</param>
     /// <returns>Scaled vector.</returns>
-    public static fix3 operator *(in fix f, in fix3 v)
+    public static fix3 operator *(fix f,  fix3 v)
     {
         fix3 toReturn;
         toReturn.x = v.x * f;
@@ -261,10 +261,10 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector to multiply.</param>
     /// <param name="b">Second vector to multiply.</param>
     /// <returns>Result of the componentwise multiplication.</returns>
-    public static fix3 operator *(in fix3 a, in fix3 b)
+    public static fix3 operator *(fix3 a,  fix3 b)
     {
         fix3 result;
-        Multiply(in a, in b, out result);
+        Multiply(a,  b, out result);
         return result;
     }
 
@@ -274,7 +274,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="v">Vector to divide.</param>
     /// <param name="f">Value to divide the vector's components.</param>
     /// <returns>Result of the division.</returns>
-    public static fix3 operator /(in fix3 v, fix f)
+    public static fix3 operator /(fix3 v, fix f)
     {
         fix3 toReturn;
         f = F64.C1 / f;
@@ -288,12 +288,12 @@ public struct fix3 : IEquatable<fix3>
     /// <summary>
     /// Divides a vector.
     /// </summary>
-    public static fix3 operator /(in fix3 v1, fix3 v2)
+    public static fix3 operator /(fix3 v1, fix3 v2)
     {
         return new fix3(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
     }
 
-    public static fix3 operator /(in fix v, fix3 v2)
+    public static fix3 operator /(fix v, fix3 v2)
     {
         return new fix3(v / v2.x, v / v2.y, v / v2.z);
     }
@@ -304,7 +304,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">Vector to subtract from.</param>
     /// <param name="b">Vector to subtract from the first vector.</param>
     /// <returns>Result of the subtraction.</returns>
-    public static fix3 operator -(in fix3 a, in fix3 b)
+    public static fix3 operator -(fix3 a,  fix3 b)
     {
         fix3 v;
         v.x = a.x - b.x;
@@ -318,7 +318,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector to add.</param>
     /// <param name="b">Second vector to add.</param>
     /// <returns>Sum of the two vectors.</returns>
-    public static fix3 operator +(in fix3 a, in fix3 b)
+    public static fix3 operator +(fix3 a,  fix3 b)
     {
         fix3 v;
         v.x = a.x + b.x;
@@ -333,7 +333,7 @@ public struct fix3 : IEquatable<fix3>
     /// </summary>
     /// <param name="v">Vector to negate.</param>
     /// <returns>Negated vector.</returns>
-    public static fix3 operator -(in fix3 v)
+    public static fix3 operator -(fix3 v)
     {
         return new fix3(-v.x, -v.y, -v.z);
     }
@@ -343,7 +343,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector to test for equivalence.</param>
     /// <param name="b">Second vector to test for equivalence.</param>
     /// <returns>Whether the vectors were equivalent.</returns>
-    public static bool operator ==(in fix3 a, in fix3 b)
+    public static bool operator ==(fix3 a,  fix3 b)
     {
         return a.x == b.x && a.y == b.y && a.z == b.z;
     }
@@ -353,27 +353,27 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector to test for inequivalence.</param>
     /// <param name="b">Second vector to test for inequivalence.</param>
     /// <returns>Whether the vectors were inequivalent.</returns>
-    public static bool operator !=(in fix3 a, in fix3 b)
+    public static bool operator !=(fix3 a,  fix3 b)
     {
         return a.x != b.x || a.y != b.y || a.z != b.z;
     }
 
-    public static bool3 operator >(in fix3 a, in fix3 b)
+    public static bool3 operator >(fix3 a,  fix3 b)
     {
         return new bool3(a.x > b.x, a.y > b.y, a.z > b.z);
     }
 
-    public static bool3 operator <(in fix3 a, in fix3 b)
+    public static bool3 operator <(fix3 a,  fix3 b)
     {
         return new bool3(a.x < b.x, a.y < b.y, a.z < b.z);
     }
 
-    public static bool3 operator >=(in fix3 a, in fix3 b)
+    public static bool3 operator >=(fix3 a,  fix3 b)
     {
         return new bool3(a.x >= b.x, a.y >= b.y, a.z >= b.z);
     }
 
-    public static bool3 operator <=(in fix3 a, in fix3 b)
+    public static bool3 operator <=(fix3 a,  fix3 b)
     {
         return new bool3(a.x <= b.x, a.y <= b.y, a.z <= b.z);
     }
@@ -425,7 +425,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <param name="distanceSquared">Squared distance between the two vectors.</param>
-    public static void DistanceSquared(in fix3 a, in fix3 b, out fix distanceSquared)
+    public static void DistanceSquared(fix3 a,  fix3 b, out fix distanceSquared)
     {
         fix x = a.x - b.x;
         fix y = a.y - b.y;
@@ -439,7 +439,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <returns>Squared distance between the two vectors.</returns>
-    public static fix DistanceSquared(in fix3 a, in fix3 b)
+    public static fix DistanceSquared(fix3 a,  fix3 b)
     {
         fix x = a.x - b.x;
         fix y = a.y - b.y;
@@ -454,7 +454,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <param name="distance">Distance between the two vectors.</param>
-    public static void Distance(in fix3 a, in fix3 b, out fix distance)
+    public static void Distance(fix3 a,  fix3 b, out fix distance)
     {
         fix x = a.x - b.x;
         fix y = a.y - b.y;
@@ -467,10 +467,10 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <returns>Distance between the two vectors.</returns>
-    public static fix Distance(in fix3 a, in fix3 b)
+    public static fix Distance(fix3 a,  fix3 b)
     {
         fix toReturn;
-        Distance(in a, in b, out toReturn);
+        Distance(a,  b, out toReturn);
         return toReturn;
     }
 
@@ -480,10 +480,10 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <returns>Cross product of the two vectors.</returns>
-    public static fix3 Cross(in fix3 a, in fix3 b)
+    public static fix3 Cross(fix3 a,  fix3 b)
     {
         fix3 toReturn;
-        fix3.Cross(in a, in b, out toReturn);
+        fix3.Cross(a,  b, out toReturn);
         return toReturn;
     }
     /// <summary>
@@ -492,7 +492,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <param name="result">Cross product of the two vectors.</param>
-    public static void Cross(in fix3 a, in fix3 b, out fix3 result)
+    public static void Cross(fix3 a,  fix3 b, out fix3 result)
     {
         fix resultX = a.y * b.z - a.z * b.y;
         fix resultY = a.z * b.x - a.x * b.z;
@@ -507,10 +507,10 @@ public struct fix3 : IEquatable<fix3>
     /// </summary>
     /// <param name="v">Vector to normalize.</param>
     /// <returns>Normalized vector.</returns>
-    public static fix3 Normalize(in fix3 v)
+    public static fix3 Normalize(fix3 v)
     {
         fix3 toReturn;
-        fix3.Normalize(in v, out toReturn);
+        fix3.Normalize(v, out toReturn);
         return toReturn;
     }
 
@@ -519,7 +519,7 @@ public struct fix3 : IEquatable<fix3>
     /// </summary>
     /// <param name="v">Vector to normalize.</param>
     /// <param name="result">Normalized vector.</param>
-    public static void Normalize(in fix3 v, out fix3 result)
+    public static void Normalize(fix3 v, out fix3 result)
     {
         fix inverse = F64.C1 / fix.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
         result.x = v.x * inverse;
@@ -532,7 +532,7 @@ public struct fix3 : IEquatable<fix3>
     /// </summary>
     /// <param name="v">Vector to negate.</param>
     /// <param name="negated">Negated vector.</param>
-    public static void Negate(in fix3 v, out fix3 negated)
+    public static void Negate(fix3 v, out fix3 negated)
     {
         negated.x = -v.x;
         negated.y = -v.y;
@@ -544,7 +544,7 @@ public struct fix3 : IEquatable<fix3>
     /// </summary>
     /// <param name="v">Vector to take the absolute value of.</param>
     /// <param name="result">Vector with nonnegative elements.</param>
-    public static void Abs(in fix3 v, out fix3 result)
+    public static void Abs(fix3 v, out fix3 result)
     {
         if (v.x < F64.C0)
             result.x = -v.x;
@@ -565,10 +565,10 @@ public struct fix3 : IEquatable<fix3>
     /// </summary>
     /// <param name="v">Vector to take the absolute value of.</param>
     /// <returns>Vector with nonnegative elements.</returns>
-    public static fix3 Abs(in fix3 v)
+    public static fix3 Abs(fix3 v)
     {
         fix3 result;
-        Abs(in v, out result);
+        Abs(v, out result);
         return result;
     }
 
@@ -578,7 +578,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <param name="min">Vector containing the lesser values of each vector.</param>
-    public static void Min(in fix3 a, in fix3 b, out fix3 min)
+    public static void Min(fix3 a,  fix3 b, out fix3 min)
     {
         min.x = a.x < b.x ? a.x : b.x;
         min.y = a.y < b.y ? a.y : b.y;
@@ -591,10 +591,10 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <returns>Vector containing the lesser values of each vector.</returns>
-    public static fix3 Min(in fix3 a, in fix3 b)
+    public static fix3 Min(fix3 a,  fix3 b)
     {
         fix3 result;
-        Min(in a, in b, out result);
+        Min(a,  b, out result);
         return result;
     }
 
@@ -605,7 +605,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <param name="max">Vector containing the greater values of each vector.</param>
-    public static void Max(in fix3 a, in fix3 b, out fix3 max)
+    public static void Max(fix3 a,  fix3 b, out fix3 max)
     {
         max.x = a.x > b.x ? a.x : b.x;
         max.y = a.y > b.y ? a.y : b.y;
@@ -618,10 +618,10 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <returns>Vector containing the greater values of each vector.</returns>
-    public static fix3 Max(in fix3 a, in fix3 b)
+    public static fix3 Max(fix3 a,  fix3 b)
     {
         fix3 result;
-        Max(in a, in b, out result);
+        Max(a,  b, out result);
         return result;
     }
 
@@ -632,10 +632,10 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="end">Ending location of the interpolation.</param>
     /// <param name="interpolationAmount">Amount of the end location to use.</param>
     /// <returns>Interpolated intermediate state.</returns>
-    public static fix3 Lerp(in fix3 start, in fix3 end, in fix interpolationAmount)
+    public static fix3 Lerp(fix3 start,  fix3 end,  fix interpolationAmount)
     {
         fix3 toReturn;
-        Lerp(in start, in end, interpolationAmount, out toReturn);
+        Lerp(start,  end, interpolationAmount, out toReturn);
         return toReturn;
     }
     /// <summary>
@@ -645,7 +645,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="end">Ending location of the interpolation.</param>
     /// <param name="interpolationAmount">Amount of the end location to use.</param>
     /// <param name="result">Interpolated intermediate state.</param>
-    public static void Lerp(in fix3 start, in fix3 end, fix interpolationAmount, out fix3 result)
+    public static void Lerp(fix3 start,  fix3 end, fix interpolationAmount, out fix3 result)
     {
         fix startAmount = F64.C1 - interpolationAmount;
         result.x = start.x * startAmount + end.x * interpolationAmount;
@@ -662,7 +662,7 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="tangent2">Tangent associated with the second position.</param>
     /// <param name="interpolationAmount">Amount of the second point to use.</param>
     /// <param name="result">Interpolated intermediate state.</param>
-    public static void Hermite(in fix3 value1, in fix3 tangent1, in fix3 value2, in fix3 tangent2, in fix interpolationAmount, out fix3 result)
+    public static void Hermite(fix3 value1,  fix3 tangent1,  fix3 value2,  fix3 tangent2,  fix interpolationAmount, out fix3 result)
     {
         fix weightSquared = interpolationAmount * interpolationAmount;
         fix weightCubed = interpolationAmount * weightSquared;
@@ -683,25 +683,25 @@ public struct fix3 : IEquatable<fix3>
     /// <param name="tangent2">Tangent associated with the second position.</param>
     /// <param name="interpolationAmount">Amount of the second point to use.</param>
     /// <returns>Interpolated intermediate state.</returns>
-    public static fix3 Hermite(in fix3 value1, in fix3 tangent1, in fix3 value2, in fix3 tangent2, in fix interpolationAmount)
+    public static fix3 Hermite(fix3 value1,  fix3 tangent1,  fix3 value2,  fix3 tangent2,  fix interpolationAmount)
     {
         fix3 toReturn;
-        Hermite(in value1, in tangent1, in value2, in tangent2, interpolationAmount, out toReturn);
+        Hermite(value1,  tangent1,  value2,  tangent2, interpolationAmount, out toReturn);
         return toReturn;
     }
 
 
     public static readonly fix3 zero = new fix3 { };
-    public static readonly fix3 one = new fix3 { x = F64.C1, y = F64.C1, z = F64.C1 };
-    public static readonly fix3 right = new fix3 { x = F64.C1 };
-    public static readonly fix3 left = new fix3 { x = -F64.C1 };
-    public static readonly fix3 up = new fix3 { y = F64.C1 };
-    public static readonly fix3 down = new fix3 { y = -F64.C1 };
-    public static readonly fix3 forward = new fix3 { z = F64.C1 };
-    public static readonly fix3 backward = new fix3 { z = -F64.C1 };
+    public static fix3 one => new fix3 { x = F64.C1, y = F64.C1, z = F64.C1 };
+    public static fix3 right => new fix3 { x = F64.C1 };
+    public static fix3 left => new fix3 { x = -F64.C1 };
+    public static fix3 up => new fix3 { y = F64.C1 };
+    public static fix3 down => new fix3 { y = -F64.C1 };
+    public static fix3 forward => new fix3 { z = F64.C1 };
+    public static fix3 backward => new fix3 { z = -F64.C1 };
 
-    public static explicit operator fix2(in fix3 v) => new fix2(v.x, v.y);
-    public static implicit operator fix3(in int3 v) => new fix3(v.x, v.y, v.z);
+    public static explicit operator fix2(fix3 v) => new fix2(v.x, v.y);
+    public static implicit operator fix3(int3 v) => new fix3(v.x, v.y, v.z);
     
-    public static explicit operator UnityEngine.Vector3(in fix3 v) => new UnityEngine.Vector3((float)v.x, (float)v.y, (float)v.z);
+    public static explicit operator UnityEngine.Vector3(fix3 v) => new UnityEngine.Vector3((float)v.x, (float)v.y, (float)v.z);
 }

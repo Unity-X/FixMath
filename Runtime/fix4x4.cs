@@ -361,10 +361,10 @@ public struct fix4x4
     /// <param name="axis">Axis around which to rotate.</param>
     /// <param name="angle">Angle to rotate around the axis.</param>
     /// <returns>FixMatrix created from the axis and angle.</returns>
-    public static fix4x4 CreateFromAxisAngle(in fix3 axis, in fix angle)
+    public static fix4x4 CreateFromAxisAngle(fix3 axis,  fix angle)
     {
         fix4x4 toReturn;
-        CreateFromAxisAngle(in axis, angle, out toReturn);
+        CreateFromAxisAngle(axis, angle, out toReturn);
         return toReturn;
     }
 
@@ -374,7 +374,7 @@ public struct fix4x4
     /// <param name="axis">Axis around which to rotate.</param>
     /// <param name="angle">Angle to rotate around the axis.</param>
     /// <param name="result">FixMatrix created from the axis and angle.</param>
-    public static void CreateFromAxisAngle(in fix3 axis, in fix angle, out fix4x4 result)
+    public static void CreateFromAxisAngle(fix3 axis,  fix angle, out fix4x4 result)
     {
         fix xx = axis.x * axis.x;
         fix yy = axis.y * axis.y;
@@ -412,7 +412,7 @@ public struct fix4x4
     /// </summary>
     /// <param name="quaternion">FixQuaternion to convert.</param>
     /// <param name="result">Rotation matrix created from the quaternion.</param>
-    public static void CreateFromQuaternion(in fixQuaternion quaternion, out fix4x4 result)
+    public static void CreateFromQuaternion(fixQuaternion quaternion, out fix4x4 result)
     {
         fix qX2 = quaternion.x + quaternion.x;
         fix qY2 = quaternion.y + quaternion.y;
@@ -453,10 +453,10 @@ public struct fix4x4
     /// </summary>
     /// <param name="quaternion">FixQuaternion to convert.</param>
     /// <returns>Rotation matrix created from the quaternion.</returns>
-    public static fix4x4 CreateFromQuaternion(in fixQuaternion quaternion)
+    public static fix4x4 CreateFromQuaternion(fixQuaternion quaternion)
     {
         fix4x4 toReturn;
-        CreateFromQuaternion(in quaternion, out toReturn);
+        CreateFromQuaternion(quaternion, out toReturn);
         return toReturn;
     }
 
@@ -466,7 +466,7 @@ public struct fix4x4
     /// <param name="a">First matrix to multiply.</param>
     /// <param name="b">Second matrix to multiply.</param>
     /// <param name="result">Combined transformation.</param>
-    public static void Multiply(in fix4x4 a, in fix4x4 b, out fix4x4 result)
+    public static void Multiply(fix4x4 a,  fix4x4 b, out fix4x4 result)
     {
         fix resultM11 = a.M11 * b.M11 + a.M21 * b.M12 + a.M31 * b.M13 + a.M41 * b.M14;
         fix resultM12 = a.M11 * b.M21 + a.M21 * b.M22 + a.M31 * b.M23 + a.M41 * b.M24;
@@ -516,10 +516,10 @@ public struct fix4x4
     /// <param name="a">First matrix to multiply.</param>
     /// <param name="b">Second matrix to multiply.</param>
     /// <returns>Combined transformation.</returns>
-    public static fix4x4 Multiply(in fix4x4 a, in fix4x4 b)
+    public static fix4x4 Multiply(fix4x4 a,  fix4x4 b)
     {
         fix4x4 result;
-        Multiply(in a, in b, out result);
+        Multiply(a,  b, out result);
         return result;
     }
 
@@ -530,7 +530,7 @@ public struct fix4x4
     /// <param name="matrix">FixMatrix to scale.</param>
     /// <param name="scale">Amount to scale.</param>
     /// <param name="result">Scaled matrix.</param>
-    public static void Multiply(in fix4x4 matrix, in fix scale, out fix4x4 result)
+    public static void Multiply(fix4x4 matrix,  fix scale, out fix4x4 result)
     {
         result.M11 = matrix.M11 * scale;
         result.M21 = matrix.M21 * scale;
@@ -559,10 +559,10 @@ public struct fix4x4
     /// <param name="a">First matrix to multiply.</param>
     /// <param name="b">Second matrix to multiply.</param>
     /// <returns>Combined transformation.</returns>
-    public static fix4x4 operator *(in fix4x4 a, in fix4x4 b)
+    public static fix4x4 operator *(fix4x4 a,  fix4x4 b)
     {
         fix4x4 toReturn;
-        Multiply(in a, in b, out toReturn);
+        Multiply(a,  b, out toReturn);
         return toReturn;
     }
 
@@ -572,10 +572,10 @@ public struct fix4x4
     /// <param name="m">First matrix to multiply.</param>
     /// <param name="f">Scaling value to apply to all components of the matrix.</param>
     /// <returns>Product of the multiplication.</returns>
-    public static fix4x4 operator *(in fix4x4 m, in fix f)
+    public static fix4x4 operator *(fix4x4 m,  fix f)
     {
         fix4x4 result;
-        Multiply(in m, f, out result);
+        Multiply(m, f, out result);
         return result;
     }
 
@@ -585,10 +585,10 @@ public struct fix4x4
     /// <param name="m">First matrix to multiply.</param>
     /// <param name="f">Scaling value to apply to all components of the matrix.</param>
     /// <returns>Product of the multiplication.</returns>
-    public static fix4x4 operator *(in fix f, in fix4x4 m)
+    public static fix4x4 operator *(fix f,  fix4x4 m)
     {
         fix4x4 result;
-        Multiply(in m, f, out result);
+        Multiply(m, f, out result);
         return result;
     }
 
@@ -598,7 +598,7 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to apply to the vector.</param>
     /// <param name="result">Transformed vector.</param>
-    public static void Transform(in fix4 v, in fix4x4 matrix, out fix4 result)
+    public static void Transform(fix4 v,  fix4x4 matrix, out fix4 result)
     {
         fix vX = v.x;
         fix vY = v.y;
@@ -616,10 +616,10 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to apply to the vector.</param>
     /// <returns>Transformed vector.</returns>
-    public static fix4 Transform(in fix4 v, in fix4x4 matrix)
+    public static fix4 Transform(fix4 v,  fix4x4 matrix)
     {
         fix4 toReturn;
-        Transform(in v, in matrix, out toReturn);
+        Transform(v,  matrix, out toReturn);
         return toReturn;
     }
 
@@ -629,7 +629,7 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
     /// <param name="result">Transformed vector.</param>
-    public static void TransformTranspose(in fix4 v, in fix4x4 matrix, out fix4 result)
+    public static void TransformTranspose(fix4 v,  fix4x4 matrix, out fix4 result)
     {
         fix vX = v.x;
         fix vY = v.y;
@@ -647,10 +647,10 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
     /// <returns>Transformed vector.</returns>
-    public static fix4 TransformTranspose(in fix4 v, in fix4x4 matrix)
+    public static fix4 TransformTranspose(fix4 v,  fix4x4 matrix)
     {
         fix4 toReturn;
-        TransformTranspose(in v, in matrix, out toReturn);
+        TransformTranspose(v,  matrix, out toReturn);
         return toReturn;
     }
 
@@ -660,7 +660,7 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to apply to the vector.</param>
     /// <param name="result">Transformed vector.</param>
-    public static void Transform(in fix3 v, in fix4x4 matrix, out fix4 result)
+    public static void Transform(fix3 v,  fix4x4 matrix, out fix4 result)
     {
         result.x = v.x * matrix.M11 + v.y * matrix.M12 + v.z * matrix.M13 + matrix.M14;
         result.y = v.x * matrix.M21 + v.y * matrix.M22 + v.z * matrix.M23 + matrix.M24;
@@ -674,10 +674,10 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to apply to the vector.</param>
     /// <returns>Transformed vector.</returns>
-    public static fix4 Transform(in fix3 v, in fix4x4 matrix)
+    public static fix4 Transform(fix3 v,  fix4x4 matrix)
     {
         fix4 toReturn;
-        Transform(in v, in matrix, out toReturn);
+        Transform(v,  matrix, out toReturn);
         return toReturn;
     }
 
@@ -687,10 +687,10 @@ public struct fix4x4
     /// <param name="v">Position to transform.</param>
     /// <param name="matrix">Transform to apply to the vector.</param>
     /// <returns>Transformed vector.</returns>
-    public static fix3 TransformPoint(in fix3 v, in fix4x4 matrix)
+    public static fix3 TransformPoint(fix3 v,  fix4x4 matrix)
     {
         fix4 result;
-        Transform(in v, in matrix, out result);
+        Transform(v,  matrix, out result);
         return new fix3(result.x / result.w, result.y / result.w, result.z / result.w);
     }
 
@@ -700,7 +700,7 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
     /// <param name="result">Transformed vector.</param>
-    public static void TransformTranspose(in fix3 v, in fix4x4 matrix, out fix4 result)
+    public static void TransformTranspose(fix3 v,  fix4x4 matrix, out fix4 result)
     {
         result.x = v.x * matrix.M11 + v.y * matrix.M21 + v.z * matrix.M31 + matrix.M41;
         result.y = v.x * matrix.M12 + v.y * matrix.M22 + v.z * matrix.M32 + matrix.M42;
@@ -714,10 +714,10 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
     /// <returns>Transformed vector.</returns>
-    public static fix4 TransformTranspose(in fix3 v, in fix4x4 matrix)
+    public static fix4 TransformTranspose(fix3 v,  fix4x4 matrix)
     {
         fix4 toReturn;
-        TransformTranspose(in v, in matrix, out toReturn);
+        TransformTranspose(v,  matrix, out toReturn);
         return toReturn;
     }
 
@@ -727,7 +727,7 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to apply to the vector.</param>
     /// <param name="result">Transformed vector.</param>
-    public static void Transform(in fix3 v, in fix4x4 matrix, out fix3 result)
+    public static void Transform(fix3 v,  fix4x4 matrix, out fix3 result)
     {
         fix vX = v.x;
         fix vY = v.y;
@@ -743,7 +743,7 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
     /// <param name="result">Transformed vector.</param>
-    public static void TransformTranspose(in fix3 v, in fix4x4 matrix, out fix3 result)
+    public static void TransformTranspose(fix3 v,  fix4x4 matrix, out fix3 result)
     {
         fix vX = v.x;
         fix vY = v.y;
@@ -759,7 +759,7 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to apply to the vector.</param>
     /// <param name="result">Transformed vector.</param>
-    public static void TransformNormal(in fix3 v, in fix4x4 matrix, out fix3 result)
+    public static void TransformNormal(fix3 v,  fix4x4 matrix, out fix3 result)
     {
         fix vX = v.x;
         fix vY = v.y;
@@ -775,10 +775,10 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to apply to the vector.</param>
     /// <returns>Transformed vector.</returns>
-    public static fix3 TransformNormal(in fix3 v, in fix4x4 matrix)
+    public static fix3 TransformNormal(fix3 v,  fix4x4 matrix)
     {
         fix3 toReturn;
-        TransformNormal(in v, in matrix, out toReturn);
+        TransformNormal(v,  matrix, out toReturn);
         return toReturn;
     }
 
@@ -788,7 +788,7 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
     /// <param name="result">Transformed vector.</param>
-    public static void TransformNormalTranspose(in fix3 v, in fix4x4 matrix, out fix3 result)
+    public static void TransformNormalTranspose(fix3 v,  fix4x4 matrix, out fix3 result)
     {
         fix vX = v.x;
         fix vY = v.y;
@@ -804,10 +804,10 @@ public struct fix4x4
     /// <param name="v">Vector to transform.</param>
     /// <param name="matrix">Transform to tranpose and apply to the vector.</param>
     /// <returns>Transformed vector.</returns>
-    public static fix3 TransformNormalTranspose(in fix3 v, in fix4x4 matrix)
+    public static fix3 TransformNormalTranspose(fix3 v,  fix4x4 matrix)
     {
         fix3 toReturn;
-        TransformNormalTranspose(in v, in matrix, out toReturn);
+        TransformNormalTranspose(v,  matrix, out toReturn);
         return toReturn;
     }
 
@@ -817,7 +817,7 @@ public struct fix4x4
     /// </summary>
     /// <param name="m">FixMatrix to transpose.</param>
     /// <param name="transposed">FixMatrix to transpose.</param>
-    public static void Transpose(in fix4x4 m, out fix4x4 transposed)
+    public static void Transpose(fix4x4 m, out fix4x4 transposed)
     {
         fix intermediate = m.M21;
         transposed.M21 = m.M12;
@@ -854,9 +854,9 @@ public struct fix4x4
     /// </summary>
     /// <param name="m">FixMatrix to invert.</param>
     /// <param name="inverted">Inverted version of the matrix.</param>
-    public static void Invert(in fix4x4 m, out fix4x4 inverted)
+    public static void Invert(fix4x4 m, out fix4x4 inverted)
     {
-        fix4x8.Invert(in m, out inverted);
+        fix4x8.Invert(m, out inverted);
     }
 
     /// <summary>
@@ -864,10 +864,10 @@ public struct fix4x4
     /// </summary>
     /// <param name="m">FixMatrix to invert.</param>
     /// <returns>Inverted version of the matrix.</returns>
-    public static fix4x4 Invert(in fix4x4 m)
+    public static fix4x4 Invert(fix4x4 m)
     {
         fix4x4 inverted;
-        Invert(in m, out inverted);
+        Invert(m, out inverted);
         return inverted;
     }
 
@@ -876,7 +876,7 @@ public struct fix4x4
     /// </summary>
     /// <param name="m">FixMatrix to invert.</param>
     /// <param name="inverted">Inverted version of the matrix.</param>
-    public static void InvertRigid(in fix4x4 m, out fix4x4 inverted)
+    public static void InvertRigid(fix4x4 m, out fix4x4 inverted)
     {
         //Invert (transpose) the upper left 3x3 rotation.
         fix intermediate = m.M21;
@@ -918,7 +918,7 @@ public struct fix4x4
     public static fix4x4 InvertRigid(fix4x4 m)
     {
         fix4x4 inverse;
-        InvertRigid(in m, out inverse);
+        InvertRigid(m, out inverse);
         return inverse;
     }
 
@@ -963,7 +963,7 @@ public struct fix4x4
     /// <param name="zNear">Near plane of the projection.</param>
     /// <param name="zFar">Far plane of the projection.</param>
     /// <param name="projection">The resulting orthographic projection matrix.</param>
-    public static void CreateOrthographicRH(in fix left, in fix right, in fix bottom, in fix top, in fix zNear, in fix zFar, out fix4x4 projection)
+    public static void CreateOrthographicRH(fix left,  fix right,  fix bottom,  fix top,  fix zNear,  fix zFar, out fix4x4 projection)
     {
         fix width = right - left;
         fix height = top - bottom;
@@ -998,7 +998,7 @@ public struct fix4x4
     /// <param name="nearClip">Near clip plane of the perspective.</param>
     /// <param name="farClip">Far clip plane of the perspective.</param>
     /// <param name="perspective">Resulting perspective matrix.</param>
-    public static void CreatePerspectiveFieldOfViewRH(in fix fieldOfView, in fix aspectRatio, in fix nearClip, in fix farClip, out fix4x4 perspective)
+    public static void CreatePerspectiveFieldOfViewRH(fix fieldOfView,  fix aspectRatio,  fix nearClip,  fix farClip, out fix4x4 perspective)
     {
         fix h = F64.C1 / fix.Tan(fieldOfView / F64.C2);
         fix w = h / aspectRatio;
@@ -1032,7 +1032,7 @@ public struct fix4x4
     /// <param name="nearClip">Near clip plane of the perspective.</param>
     /// <param name="farClip">Far clip plane of the perspective.</param>
     /// <returns>Resulting perspective matrix.</returns>
-    public static fix4x4 CreatePerspectiveFieldOfViewRH(in fix fieldOfView, in fix aspectRatio, in fix nearClip, in fix farClip)
+    public static fix4x4 CreatePerspectiveFieldOfViewRH(fix fieldOfView,  fix aspectRatio,  fix nearClip,  fix farClip)
     {
         fix4x4 perspective;
         CreatePerspectiveFieldOfViewRH(fieldOfView, aspectRatio, nearClip, farClip, out perspective);
@@ -1046,11 +1046,11 @@ public struct fix4x4
     /// <param name="target">Target of the camera.</param>
     /// <param name="upVector">Up vector of the camera.</param>
     /// <param name="viewMatrix">Look at matrix.</param>
-    public static void CreateLookAtRH(in fix3 position, in fix3 target, in fix3 upVector, out fix4x4 viewMatrix)
+    public static void CreateLookAtRH(fix3 position,  fix3 target,  fix3 upVector, out fix4x4 viewMatrix)
     {
         fix3 forward;
-        fix3.Subtract(in target, in position, out forward);
-        CreateViewRH(in position, in forward, in upVector, out viewMatrix);
+        fix3.Subtract(target,  position, out forward);
+        CreateViewRH(position,  forward,  upVector, out viewMatrix);
     }
 
     /// <summary>
@@ -1060,12 +1060,12 @@ public struct fix4x4
     /// <param name="target">Target of the camera.</param>
     /// <param name="upVector">Up vector of the camera.</param>
     /// <returns>Look at matrix.</returns>
-    public static fix4x4 CreateLookAtRH(in fix3 position, in fix3 target, in fix3 upVector)
+    public static fix4x4 CreateLookAtRH(fix3 position,  fix3 target,  fix3 upVector)
     {
         fix4x4 lookAt;
         fix3 forward;
-        fix3.Subtract(in target, in position, out forward);
-        CreateViewRH(in position, in forward, in upVector, out lookAt);
+        fix3.Subtract(target,  position, out forward);
+        CreateViewRH(position,  forward,  upVector, out lookAt);
         return lookAt;
     }
 
@@ -1077,16 +1077,16 @@ public struct fix4x4
     /// <param name="forward">Forward direction of the camera.</param>
     /// <param name="upVector">Up vector of the camera.</param>
     /// <param name="viewMatrix">Look at matrix.</param>
-    public static void CreateViewRH(in fix3 position, in fix3 forward, in fix3 upVector, out fix4x4 viewMatrix)
+    public static void CreateViewRH(fix3 position,  fix3 forward,  fix3 upVector, out fix4x4 viewMatrix)
     {
         fix3 z;
         fix length = forward.length;
-        fix3.Divide(in forward, -length, out z);
+        fix3.Divide(forward, -length, out z);
         fix3 x;
-        fix3.Cross(in upVector, in z, out x);
+        fix3.Cross(upVector,  z, out x);
         x.Normalize();
         fix3 y;
-        fix3.Cross(in z, in x, out y);
+        fix3.Cross(z,  x, out y);
 
         viewMatrix.M11 = x.x;
         viewMatrix.M21 = y.x;
@@ -1100,9 +1100,9 @@ public struct fix4x4
         viewMatrix.M23 = y.z;
         viewMatrix.M33 = z.z;
         viewMatrix.M43 = F64.C0;
-        fix3.Dot(in x, in position, out viewMatrix.M14);
-        fix3.Dot(in y, in position, out viewMatrix.M24);
-        fix3.Dot(in z, in position, out viewMatrix.M34);
+        fix3.Dot(x,  position, out viewMatrix.M14);
+        fix3.Dot(y,  position, out viewMatrix.M24);
+        fix3.Dot(z,  position, out viewMatrix.M34);
         viewMatrix.M14 = -viewMatrix.M14;
         viewMatrix.M24 = -viewMatrix.M24;
         viewMatrix.M34 = -viewMatrix.M34;
@@ -1117,17 +1117,17 @@ public struct fix4x4
     /// <param name="forward">Forward direction of the camera.</param>
     /// <param name="upVector">Up vector of the camera.</param>
     /// <returns>Look at matrix.</returns>
-    public static fix4x4 CreateViewRH(in fix3 position, in fix3 forward, in fix3 upVector)
+    public static fix4x4 CreateViewRH(fix3 position,  fix3 forward,  fix3 upVector)
     {
         fix4x4 lookat;
-        CreateViewRH(in position, in forward, in upVector, out lookat);
+        CreateViewRH(position,  forward,  upVector, out lookat);
         return lookat;
     }
 
     /// <summary>
     /// Creates a transform matrix with the given positon, rotation and scale
     /// </summary>
-    public static fix4x4 CreateTRS(in fix3 position, in fixQuaternion rotation, in fix3 scale)
+    public static fix4x4 CreateTRS(fix3 position,  fixQuaternion rotation,  fix3 scale)
     {
         fix4x4 result;
         CreateTRS(position, rotation, scale, out result);
@@ -1138,7 +1138,7 @@ public struct fix4x4
     /// <summary>
     /// Creates a transform matrix with the given positon, rotation and scale
     /// </summary>
-    public static void CreateTRS(in fix3 position, in fixQuaternion rotation, in fix3 scale, out fix4x4 worldMatrix)
+    public static void CreateTRS(fix3 position,  fixQuaternion rotation,  fix3 scale, out fix4x4 worldMatrix)
     {
         fix4x4 mat;
 
@@ -1150,7 +1150,7 @@ public struct fix4x4
         worldMatrix *= mat;
 
         // Translation
-        CreateTranslation(in position, out mat);
+        CreateTranslation(position, out mat);
         worldMatrix *= mat;
     }
 
@@ -1162,16 +1162,16 @@ public struct fix4x4
     /// <param name="forward">Forward direction of the transformation.</param>
     /// <param name="upVector">Up vector which is crossed against the forward vector to compute the transform's basis.</param>
     /// <param name="worldMatrix">World matrix.</param>
-    public static void CreateWorldRH(in fix3 position, in fix3 forward, in fix3 upVector, out fix4x4 worldMatrix)
+    public static void CreateWorldRH(fix3 position,  fix3 forward,  fix3 upVector, out fix4x4 worldMatrix)
     {
         fix3 z;
         fix length = forward.length;
-        fix3.Divide(in forward, -length, out z);
+        fix3.Divide(forward, -length, out z);
         fix3 x;
-        fix3.Cross(in upVector, in z, out x);
+        fix3.Cross(upVector,  z, out x);
         x.Normalize();
         fix3 y;
-        fix3.Cross(in z, in x, out y);
+        fix3.Cross(z,  x, out y);
 
         worldMatrix.M11 = x.x;
         worldMatrix.M21 = x.y;
@@ -1201,10 +1201,10 @@ public struct fix4x4
     /// <param name="forward">Forward direction of the transformation.</param>
     /// <param name="upVector">Up vector which is crossed against the forward vector to compute the transform's basis.</param>
     /// <returns>World matrix.</returns>
-    public static fix4x4 CreateWorldRH(in fix3 position, in fix3 forward, in fix3 upVector)
+    public static fix4x4 CreateWorldRH(fix3 position,  fix3 forward,  fix3 upVector)
     {
         fix4x4 lookat;
-        CreateWorldRH(in position, in forward, in upVector, out lookat);
+        CreateWorldRH(position,  forward,  upVector, out lookat);
         return lookat;
     }
 
@@ -1215,7 +1215,7 @@ public struct fix4x4
     /// </summary>
     /// <param name="translation">Translation to be represented by the matrix.</param>
     /// <param name="translationMatrix">FixMatrix representing the given translation.</param>
-    public static void CreateTranslation(in fix3 translation, out fix4x4 translationMatrix)
+    public static void CreateTranslation(fix3 translation, out fix4x4 translationMatrix)
     {
         translationMatrix = new fix4x4
         {
@@ -1234,10 +1234,10 @@ public struct fix4x4
     /// </summary>
     /// <param name="translation">Translation to be represented by the matrix.</param>
     /// <returns>FixMatrix representing the given translation.</returns>
-    public static fix4x4 CreateTranslation(in fix3 translation)
+    public static fix4x4 CreateTranslation(fix3 translation)
     {
         fix4x4 translationMatrix;
-        CreateTranslation(in translation, out translationMatrix);
+        CreateTranslation(translation, out translationMatrix);
         return translationMatrix;
     }
 
@@ -1246,7 +1246,7 @@ public struct fix4x4
     /// </summary>
     /// <param name="scale">Scale to be represented by the matrix.</param>
     /// <param name="scaleMatrix">FixMatrix representing the given scale.</param>
-    public static void CreateScale(in fix3 scale, out fix4x4 scaleMatrix)
+    public static void CreateScale(fix3 scale, out fix4x4 scaleMatrix)
     {
         scaleMatrix = new fix4x4
         {
@@ -1262,10 +1262,10 @@ public struct fix4x4
     /// </summary>
     /// <param name="scale">Scale to be represented by the matrix.</param>
     /// <returns>FixMatrix representing the given scale.</returns>
-    public static fix4x4 CreateScale(in fix3 scale)
+    public static fix4x4 CreateScale(fix3 scale)
     {
         fix4x4 scaleMatrix;
-        CreateScale(in scale, out scaleMatrix);
+        CreateScale(scale, out scaleMatrix);
         return scaleMatrix;
     }
 
@@ -1276,7 +1276,7 @@ public struct fix4x4
     /// <param name="y">Scale along the y axis.</param>
     /// <param name="z">Scale along the z axis.</param>
     /// <param name="scaleMatrix">FixMatrix representing the given scale.</param>
-    public static void CreateScale(in fix x, in fix y, in fix z, out fix4x4 scaleMatrix)
+    public static void CreateScale(fix x,  fix y,  fix z, out fix4x4 scaleMatrix)
     {
         scaleMatrix = new fix4x4
         {
@@ -1294,7 +1294,7 @@ public struct fix4x4
     /// <param name="y">Scale along the y axis.</param>
     /// <param name="z">Scale along the z axis.</param>
     /// <returns>FixMatrix representing the given scale.</returns>
-    public static fix4x4 CreateScale(in fix x, in fix y, in fix z)
+    public static fix4x4 CreateScale(fix x,  fix y,  fix z)
     {
         fix4x4 scaleMatrix;
         CreateScale(x, y, z, out scaleMatrix);
