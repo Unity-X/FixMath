@@ -136,7 +136,19 @@ public static partial class fixMath
         return length(a - b) < epsilon;
     }
 
+    public static fix2 movetowards(fix2 current, fix2 target, fix maxDistanceDelta)
+    {
+        fix2 delta = target - current;
+        fix sqdist = lengthsq(delta);
 
+        if (sqdist == 0 || sqdist <= maxDistanceDelta * maxDistanceDelta)
+            return target;
+
+        fix dist = sqrt(sqdist);
+        fix2 dir = delta / dist;
+
+        return current + (dir * maxDistanceDelta);
+    }
 
 
 
