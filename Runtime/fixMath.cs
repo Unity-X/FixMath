@@ -150,6 +150,17 @@ public static partial class fixMath
         return current + (dir * maxDistanceDelta);
     }
 
+    public static fix2 clampLength(fix2 v, fix min, fix max)
+    {
+        fix l = fixMath.length(v);
+        return fixMath.clamp(l, min, max) * (v / l);
+    }
+
+    public static fix3 clampLength(fix3 v, fix min, fix max)
+    {
+        fix l = fixMath.length(v);
+        return fixMath.clamp(l, min, max) * (v / l);
+    }
 
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
