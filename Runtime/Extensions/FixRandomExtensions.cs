@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -84,6 +85,9 @@ public static class FixRandomExtensions
         }
     }
 
+    /// <summary>
+    /// Shuffle your list with simulation random
+    /// </summary>
     public static void Shuffle<T>(this ref FixRandom random, T[] collection)
     {
         T temp;
@@ -97,5 +101,31 @@ public static class FixRandomExtensions
             collection[chosen] = collection[i];
             collection[i] = temp;
         }
+    }
+
+    /// <summary>
+    /// Shuffle your list with simulation random
+    /// </summary>
+    public static void Shuffle<T>(this ref FixRandom random, NativeArray<T> collection) where T : struct
+    {
+        T temp;
+        for (int i = collection.Length - 1; i >= 1; i--)
+        {
+            int chosen = random.NextInt(0, i + 1);
+            if (chosen == i)
+                continue;
+
+            temp = collection[chosen];
+            collection[chosen] = collection[i];
+            collection[i] = temp;
+        }
+    }
+
+    /// <summary>
+    /// Shuffle your list with simulation random
+    /// </summary>
+    public static void Shuffle<T>(this ref FixRandom random, Unity.Collections.NativeList<T> collection) where T : struct
+    {
+        Shuffle(ref random, collection.AsArray());
     }
 }

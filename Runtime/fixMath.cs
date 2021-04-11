@@ -219,12 +219,14 @@ public static partial class fixMath
     public static int3 ceilToInt(fix3 v) => int3(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y), global::fix.CeilingToInt(v.z));
     public static int4 ceilToInt(fix4 v) => int4(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y), global::fix.CeilingToInt(v.z), global::fix.CeilingToInt(v.w));
 
-    public static fix lengthmanhattan(fix2 v) => abs(v.x) +abs(v.y);
+    public static fix lengthmanhattan(fix2 v) => abs(v.x) + abs(v.y);
     public static fix lengthmanhattan(fix3 v) => abs(v.x) + abs(v.y) + abs(v.z);
     public static fix lengthmanhattan(fix4 v) => abs(v.x) + abs(v.y) + abs(v.z) + abs(v.w);
-    public static int lengthmanhattan(int2 v) => math.abs(v.x) + math.abs(v.y);
-    public static int lengthmanhattan(int3 v) => math.abs(v.x) + math.abs(v.y) + math.abs(v.z);
-    public static int lengthmanhattan(int4 v) => math.abs(v.x) + math.abs(v.y) + math.abs(v.z) + math.abs(v.w);
+
+    public static fix distancemanhattan(fix x, fix y) { return abs(y - x); }
+    public static fix distancemanhattan(fix2 x, fix2 y) { return lengthmanhattan(y - x); }
+    public static fix distancemanhattan(fix3 x, fix3 y) { return lengthmanhattan(y - x); }
+    public static fix distancemanhattan(fix4 x, fix4 y) { return lengthmanhattan(y - x); }
 
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
