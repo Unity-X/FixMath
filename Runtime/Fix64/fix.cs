@@ -12,7 +12,7 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
     public long RawValue; // should be read-only but we leave it like that for unity serialization
 
     // Precision of this type is 2^-32, that is 2,3283064365386962890625E-10
-    public static readonly fix epsilon = new fix(rawValue: 1L);
+    public static readonly fix Epsilon = new fix(rawValue: 1L);
     public static fix MaxValue => new fix(MAX_VALUE);
     public static fix MinValue => new fix(MIN_VALUE);
     public static fix One => new fix(ONE);

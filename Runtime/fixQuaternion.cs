@@ -781,7 +781,7 @@ public struct fixQuaternion : IEquatable<fixQuaternion>
         }
 
         fix lengthSquared = axis.lengthSquared;
-        if (lengthSquared > fix.epsilon)
+        if (lengthSquared > fix.Epsilon)
         {
             fix3.Divide(axis, fix.Sqrt(lengthSquared), out axis);
             angle = F64.C2 * fix.Acos(fixMath.Clamp(qw, -1, F64.C1));

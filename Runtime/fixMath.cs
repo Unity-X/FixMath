@@ -153,12 +153,16 @@ public static partial class fixMath
     public static fix2 clampLength(fix2 v, fix min, fix max)
     {
         fix l = fixMath.length(v);
+        if (l <= global::fix.Epsilon)
+            return new fix2(min, 0);
         return fixMath.clamp(l, min, max) * (v / l);
     }
 
     public static fix3 clampLength(fix3 v, fix min, fix max)
     {
         fix l = fixMath.length(v);
+        if (l <= global::fix.Epsilon)
+            return new fix3(min, 0, 0);
         return fixMath.clamp(l, min, max) * (v / l);
     }
 
