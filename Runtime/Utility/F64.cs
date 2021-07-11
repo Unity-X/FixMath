@@ -18,4 +18,6 @@ public static class F64
     public static readonly fix C0p25 = (fix)0.25f;
     public static readonly fix Cm0p9999 = fix.FromRaw(-4294537799L);
     public static readonly fix C1m1em12 = fix.FromRaw(4294967296L);
+    public static readonly fix CPiOver180 = (fix)0.01745329251994329576923690768489;
+    public static readonly fix C180OverPi = (fix)57.295779513082320876798154814105;
 }

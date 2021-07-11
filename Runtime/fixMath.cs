@@ -102,22 +102,14 @@ public static partial class fixMath
     /// <summary>
     /// Converts degrees to radians.
     /// </summary>
-    /// <param name="degrees">Degrees to convert.</param>
-    /// <returns>Radians equivalent to the input degrees.</returns>
-    internal static fix ToRadians(fix degrees)
-    {
-        return degrees * (Pi / F64.C180);
-    }
-
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix rad(fix degrees) => degrees * F64.CPiOver180;
+    
     /// <summary>
     /// Converts radians to degrees.
     /// </summary>
-    /// <param name="radians">Radians to convert.</param>
-    /// <returns>Degrees equivalent to the input radians.</returns>
-    internal static fix ToDegrees(fix radians)
-    {
-        return radians * (F64.C180 / Pi);
-    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix deg(fix radians) => radians * F64.C180OverPi;
 
     public static bool3 almostEqual(fix3 a,  fix3 b) => almostEqual(a, b, fix(0.0001));
     public static bool2 almostEqual(fix2 a,  fix2 b) => almostEqual(a, b, fix(0.0001));
@@ -254,17 +246,17 @@ public static partial class fixMath
         return fixQuaternion.EulerZ(v);
     }
 
-    public static fix2 Rotate(fix2 v, fix radians)
+    /// <summary>
+    /// Rotate the vector v by the given radian value
+    /// </summary>
+    public static fix2 rotate(fix2 v, fix radians)
     {
         fix sin = fixMath.sin(radians);
         fix cos = fixMath.cos(radians);
 
-        fix tx = v.x;
-        fix ty = v.y;
-
         return new fix2(
-            (cos * tx) - (sin * ty),    // x
-            (sin * tx) + (cos * ty));   // y
+            (cos * v.x) - (sin * v.y),    // x
+            (sin * v.x) + (cos * v.y));   // y
     }
 
     /// <summary>
