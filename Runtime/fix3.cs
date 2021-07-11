@@ -704,4 +704,5 @@ public struct fix3 : IEquatable<fix3>
     public static implicit operator fix3(int3 v) => new fix3(v.x, v.y, v.z);
     
     public static explicit operator UnityEngine.Vector3(fix3 v) => new UnityEngine.Vector3((float)v.x, (float)v.y, (float)v.z);
+    public static explicit operator fix3(UnityEngine.Vector3 v) => new fix3((fix)v.x, (fix)v.y, (fix)v.z);
 }
