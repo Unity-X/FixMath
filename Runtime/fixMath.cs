@@ -140,10 +140,8 @@ public static partial class fixMath
     {
         fix delta = target - current;
         fix dir = sign(delta);
-
         if (delta == 0 || delta * dir <= maxDistanceDelta) // delta * dir = abs(delta)
             return target;
-
         return current + (dir * maxDistanceDelta);
     }
 
@@ -254,6 +252,19 @@ public static partial class fixMath
     public static fix angle2d(fixQuaternion v)
     {
         return fixQuaternion.EulerZ(v);
+    }
+
+    public static fix2 Rotate(fix2 v, fix radians)
+    {
+        fix sin = fixMath.sin(radians);
+        fix cos = fixMath.cos(radians);
+
+        fix tx = v.x;
+        fix ty = v.y;
+
+        return new fix2(
+            (cos * tx) - (sin * ty),    // x
+            (sin * tx) + (cos * ty));   // y
     }
 
     /// <summary>
