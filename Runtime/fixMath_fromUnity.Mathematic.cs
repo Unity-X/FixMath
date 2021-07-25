@@ -495,6 +495,39 @@ public static partial class fixMath
     /// <summary>Returns a normalized version of the fix4 vector x by scaling it by 1 / length(x).</summary>
     public static fix4 normalize(fix4 x) { return rsqrt(dot(x, x)) * x; }
 
+    /// <summary>
+    /// Returns a safe normalized version of the fix2 vector x by scaling it by 1 / length(x).
+    /// Returns the given default value when 1 / length(x) does not produce a finite number.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static public fix2 normalizesafe(fix2 x, fix2 defaultvalue = new fix2())
+    {
+        fix len = dot(x, x);
+        return select(defaultvalue, x * rsqrt(len), len > FLT_MIN_NORMAL);
+    }
+
+    /// <summary>
+    /// Returns a safe normalized version of the float3 vector x by scaling it by 1 / length(x).
+    /// Returns the given default value when 1 / length(x) does not produce a finite number.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static public fix3 normalizesafe(fix3 x, fix3 defaultvalue = new fix3())
+    {
+        fix len = dot(x, x);
+        return select(defaultvalue, x * rsqrt(len), len > FLT_MIN_NORMAL);
+    }
+
+    /// <summary>
+    /// Returns a safe normalized version of the float4 vector x by scaling it by 1 / length(x).
+    /// Returns the given default value when 1 / length(x) does not produce a finite number.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static public fix4 normalizesafe(fix4 x, fix4 defaultvalue = new fix4())
+    {
+        fix len = dot(x, x);
+        return select(defaultvalue, x * rsqrt(len), len > FLT_MIN_NORMAL);
+    }
+
 
     /// <summary>Returns the length of a fix value. Equivalent to the absolute value.</summary>
     public static fix length(fix x) { return abs(x); }
