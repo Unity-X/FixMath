@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -100,6 +101,24 @@ public static class FixRandomExtensions
             temp = collection[chosen];
             collection[chosen] = collection[i];
             collection[i] = temp;
+        }
+    }
+
+    /// <summary>
+    /// Shuffle your list with simulation random
+    /// </summary>
+    public static unsafe void Shuffle<T>(this ref FixRandom random, void* collection, int length) where T : struct
+    {
+        T temp;
+        for (int i = length - 1; i >= 1; i--)
+        {
+            int chosen = random.NextInt(0, i + 1);
+            if (chosen == i)
+                continue;
+
+            temp = UnsafeUtility.ArrayElementAsRef<T>(collection, chosen);
+            UnsafeUtility.ArrayElementAsRef<T>(collection, chosen) = UnsafeUtility.ArrayElementAsRef<T>(collection, i);
+            UnsafeUtility.ArrayElementAsRef<T>(collection, i) = temp;
         }
     }
 
