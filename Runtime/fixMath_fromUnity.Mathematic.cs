@@ -838,4 +838,287 @@ public static partial class fixMath
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fix3 up() { return new fix3(fix(0), fix(1), fix(0)); }  // for compatibility
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2x2 inverse(fix2x2 a)
+    {
+        fix2x2.Invert(ref a, out a);
+        return a;
+    }
+
+    /// <summary>Returns the fix value result of a matrix multiplication between a fix value and a fix value.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix mul(fix a, fix b)
+    {
+        return a * b;
+    }
+
+    /// <summary>Returns the fix value result of a matrix multiplication between a fix2 row vector and a fix2 column vector.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix mul(fix2 a, fix2 b)
+    {
+        return a.x * b.x + a.y * b.y;
+    }
+
+    /// <summary>Returns the fix2 row vector result of a matrix multiplication between a fix2 row vector and a fix2x2 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2 mul(fix2 a, fix2x2 b)
+    {
+        return new fix2(
+            a.x * b.M11 + a.y * b.M21,
+            a.x * b.M12 + a.y * b.M22);
+    }
+
+    /// <summary>Returns the fix3 row vector result of a matrix multiplication between a fix2 row vector and a fix2x3 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix3 mul(fix2 a, fix2x3 b)
+    {
+        return new fix3(
+            a.x * b.M11 + a.y * b.M21,
+            a.x * b.M12 + a.y * b.M22,
+            a.x * b.M13 + a.y * b.M23);
+    }
+
+    /// <summary>Returns the fix value result of a matrix multiplication between a fix3 row vector and a fix3 column vector.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix mul(fix3 a, fix3 b)
+    {
+        return a.x * b.x + a.y * b.y + a.z * b.z;
+    }
+
+    /// <summary>Returns the fix2 row vector result of a matrix multiplication between a fix3 row vector and a fix3x2 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2 mul(fix3 a, fix3x2 b)
+    {
+        return new fix2(
+            a.x * b.M11 + a.y * b.M21 + a.z * b.M31,
+            a.x * b.M12 + a.y * b.M22 + a.z * b.M32);
+    }
+
+    /// <summary>Returns the fix3 row vector result of a matrix multiplication between a fix3 row vector and a fix3x3 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix3 mul(fix3 a, fix3x3 b)
+    {
+        return new fix3(
+            a.x * b.M11 + a.y * b.M21 + a.z * b.M31,
+            a.x * b.M12 + a.y * b.M22 + a.z * b.M32,
+            a.x * b.M13 + a.y * b.M23 + a.z * b.M33);
+    }
+
+    /// <summary>Returns the fix value result of a matrix multiplication between a fix4 row vector and a fix4 column vector.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix mul(fix4 a, fix4 b)
+    {
+        return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
+    }
+
+    /// <summary>Returns the fix4 row vector result of a matrix multiplication between a fix4 row vector and a fix4x4 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix4 mul(fix4 a, fix4x4 b)
+    {
+        return new fix4(
+            a.x * b.M11 + a.y * b.M21 + a.z * b.M31 + a.w * b.M41,
+            a.x * b.M12 + a.y * b.M22 + a.z * b.M32 + a.w * b.M42,
+            a.x * b.M13 + a.y * b.M23 + a.z * b.M33 + a.w * b.M43,
+            a.x * b.M14 + a.y * b.M24 + a.z * b.M34 + a.w * b.M44);
+    }
+
+    /// <summary>Returns the fix2 column vector result of a matrix multiplication between a fix2x2 matrix and a fix2 column vector.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2 mul(fix2x2 a, fix2 b)
+    {
+        return new fix2(
+            a.M11 * b.x + a.M12 * b.y,
+            a.M21 * b.x + a.M22 * b.y);
+    }
+
+    /// <summary>Returns the fix2x2 matrix result of a matrix multiplication between a fix2x2 matrix and a fix2x2 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2x2 mul(fix2x2 a, fix2x2 b)
+    {
+        return new fix2x2(
+            a.M11 * b.M11 + a.M12 * b.M21,
+            a.M11 * b.M12 + a.M12 * b.M22,
+            a.M21 * b.M11 + a.M22 * b.M21,
+            a.M21 * b.M12 + a.M22 * b.M22
+            );
+    }
+
+    /// <summary>Returns the fix2x3 matrix result of a matrix multiplication between a fix2x2 matrix and a fix2x3 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2x3 mul(fix2x2 a, fix2x3 b)
+    {
+        return new fix2x3(
+            a.M11 * b.M11 + a.M12 * b.M21,
+            a.M11 * b.M12 + a.M12 * b.M22,
+            a.M11 * b.M13 + a.M12 * b.M23,
+
+            a.M21 * b.M11 + a.M22 * b.M21,
+            a.M21 * b.M12 + a.M22 * b.M22,
+            a.M21 * b.M13 + a.M22 * b.M23
+            );
+    }
+
+    /// <summary>Returns the fix2 column vector result of a matrix multiplication between a fix2x3 matrix and a fix3 column vector.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2 mul(fix2x3 a, fix3 b)
+    {
+        return new fix2(
+            a.M11 * b.x + a.M12 * b.y + a.M13 * b.z,
+            a.M21 * b.x + a.M22 * b.y + a.M23 * b.z);
+    }
+
+    /// <summary>Returns the fix2x2 matrix result of a matrix multiplication between a fix2x3 matrix and a fix3x2 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2x2 mul(fix2x3 a, fix3x2 b)
+    {
+        return new fix2x2(
+            a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31,
+            a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32,
+            a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31,
+            a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32
+            );
+    }
+
+    /// <summary>Returns the fix2x3 matrix result of a matrix multiplication between a fix2x3 matrix and a fix3x3 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2x3 mul(fix2x3 a, fix3x3 b)
+    {
+        return new fix2x3(
+            a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31,
+            a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32,
+            a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33,
+
+            a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31,
+            a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32,
+            a.M21 * b.M13 + a.M12 * b.M23 + a.M23 * b.M33
+            );
+    }
+
+    /// <summary>Returns the fix3 column vector result of a matrix multiplication between a fix3x2 matrix and a fix2 column vector.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix3 mul(fix3x2 a, fix2 b)
+    {
+        return new fix3(
+            a.M11 * b.x + a.M12 * b.y,
+            a.M21 * b.x + a.M22 * b.y,
+            a.M31 * b.x + a.M32 * b.y);
+    }
+
+    /// <summary>Returns the fix3x2 matrix result of a matrix multiplication between a fix3x2 matrix and a fix2x2 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix3x2 mul(fix3x2 a, fix2x2 b)
+    {
+        return new fix3x2(
+            a.M11 * b.M11 + a.M12 * b.M21,
+            a.M11 * b.M12 + a.M12 * b.M22,
+
+            a.M21 * b.M11 + a.M22 * b.M21,
+            a.M21 * b.M12 + a.M22 * b.M22,
+
+            a.M31 * b.M11 + a.M32 * b.M21,
+            a.M31 * b.M12 + a.M32 * b.M22
+            );
+    }
+
+    /// <summary>Returns the fix3x3 matrix result of a matrix multiplication between a fix3x2 matrix and a fix2x3 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix3x3 mul(fix3x2 a, fix2x3 b)
+    {
+        return new fix3x3(
+            a.M11 * b.M11 + a.M12 * b.M21,
+            a.M11 * b.M12 + a.M12 * b.M22,
+            a.M11 * b.M13 + a.M12 * b.M23,
+
+            a.M21 * b.M11 + a.M22 * b.M21,
+            a.M21 * b.M12 + a.M22 * b.M22,
+            a.M21 * b.M13 + a.M22 * b.M23,
+
+            a.M31 * b.M11 + a.M32 * b.M21,
+            a.M31 * b.M12 + a.M32 * b.M22,
+            a.M31 * b.M13 + a.M32 * b.M23
+            );
+    }
+
+    /// <summary>Returns the fix3 column vector result of a matrix multiplication between a fix3x3 matrix and a fix3 column vector.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix3 mul(fix3x3 a, fix3 b)
+    {
+        return new fix3(
+            a.M11 * b.x + a.M12 * b.y + a.M13 * b.z,
+            a.M21 * b.x + a.M22 * b.y + a.M23 * b.z,
+            a.M31 * b.x + a.M32 * b.y + a.M33 * b.z);
+    }
+
+    /// <summary>Returns the fix3x2 matrix result of a matrix multiplication between a fix3x3 matrix and a fix3x2 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix3x2 mul(fix3x3 a, fix3x2 b)
+    {
+        return new fix3x2(
+            a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31,
+            a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32,
+
+            a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31,
+            a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32,
+
+            a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31,
+            a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32);
+    }
+
+    /// <summary>Returns the fix3x3 matrix result of a matrix multiplication between a fix3x3 matrix and a fix3x3 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix3x3 mul(fix3x3 a, fix3x3 b)
+    {
+        return new fix3x3(
+            a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31,
+            a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32,
+            a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33,
+
+            a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31,
+            a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32,
+            a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33,
+
+            a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31,
+            a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32,
+            a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33
+            );
+    }
+
+    /// <summary>Returns the fix4 column vector result of a matrix multiplication between a fix4x4 matrix and a fix4 column vector.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix4 mul(fix4x4 a, fix4 b)
+    {
+        return new fix4(
+            a.M11 * b.x + a.M12 * b.y + a.M13 * b.z + a.M14 * b.w,
+            a.M21 * b.x + a.M22 * b.y + a.M23 * b.z + a.M24 * b.w,
+            a.M31 * b.x + a.M32 * b.y + a.M33 * b.z + a.M34 * b.w,
+            a.M41 * b.x + a.M42 * b.y + a.M43 * b.z + a.M44 * b.w);
+    }
+
+    /// <summary>Returns the fix4x4 matrix result of a matrix multiplication between a fix4x4 matrix and a fix4x4 matrix.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix4x4 mul(fix4x4 a, fix4x4 b)
+    {
+        return new fix4x4(
+            a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31 + a.M14 * b.M41,
+            a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32 + a.M14 * b.M42,
+            a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33 + a.M14 * b.M43,
+            a.M11 * b.M14 + a.M12 * b.M24 + a.M13 * b.M34 + a.M14 * b.M44,
+
+            a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31 + a.M24 * b.M41,
+            a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32 + a.M24 * b.M42,
+            a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33 + a.M24 * b.M43,
+            a.M21 * b.M14 + a.M22 * b.M24 + a.M23 * b.M34 + a.M24 * b.M44,
+
+            a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31 + a.M34 * b.M41,
+            a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32 + a.M34 * b.M42,
+            a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33 + a.M34 * b.M43,
+            a.M31 * b.M14 + a.M32 * b.M24 + a.M33 * b.M34 + a.M34 * b.M44,
+
+            a.M41 * b.M11 + a.M42 * b.M21 + a.M43 * b.M31 + a.M44 * b.M41,
+            a.M41 * b.M12 + a.M42 * b.M22 + a.M43 * b.M32 + a.M44 * b.M42,
+            a.M41 * b.M13 + a.M42 * b.M23 + a.M43 * b.M33 + a.M44 * b.M43,
+            a.M41 * b.M14 + a.M42 * b.M24 + a.M43 * b.M34 + a.M44 * b.M44
+            );
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Unity.Burst;
 using Unity.Mathematics;
 using static Unity.Mathematics.math;
 
@@ -27,6 +28,12 @@ public static partial class fixMath
     /// Approximate value of Pi divided by four.
     /// </summary>
     internal static readonly fix PiOver4 = global::fix.Pi / new fix(4);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool samesign(fix a, fix b)
+    {
+        return sign(a) == sign(b);
+    }
 
     /// <summary>
     /// Calculate remainder of of Fix64 division using same algorithm
@@ -284,7 +291,7 @@ public static partial class fixMath
     /// The argument was non-positive
     /// </exception>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix ln(fix x) => global::fix.Ln(x);
+    public static fix log(fix x) => global::fix.Ln(x);
 
     /// <summary>
     /// Returns a rough approximation of the Sine of x.
@@ -303,44 +310,4 @@ public static partial class fixMath
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fix atan2(fix y, fix x) => global::fix.Atan2(y, x);
-
-    //public static fix sqrt(fix x) { return global::fix.Sqrt(x); }
-    //public static fix2 sqrt(fix2 x) { return new fix2(sqrt(x.x), sqrt(x.y)); }
-    //public static fix3 sqrt(fix3 x) { return new fix3(sqrt(x.x), sqrt(x.y), sqrt(x.z)); }
-    //public static fix4 sqrt(fix4 x) { return new fix4(sqrt(x.x), sqrt(x.y), sqrt(x.z), sqrt(x.w)); }
-
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    //public static fix dot(fix x, fix y) { return x * y; }
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    //public static fix dot(fix2 x, fix2 y) { return x.x * y.x + x.y * y.y; }
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    //public static fix dot(fix3 x, fix3 y) { return x.x * y.x + x.y * y.y + x.z * y.z; }
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    //public static fix dot(fix4 x, fix4 y) { return x.x * y.x + x.y * y.y + x.z * y.z + x.w * y.w; }
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    //public static fix rsqrt(fix x) { return 1 / sqrt(x); }
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    //public static fix2 rsqrt(fix2 x) { return 1 / sqrt(x); }
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    //public static fix3 rsqrt(fix3 x) { return 1 / sqrt(x); }
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    //public static fix4 rsqrt(fix4 x) { return fix4(1) / sqrt(x); }
-
-
-    //public static fix length(fix2 v)   => v.length;
-    //public static fix length(fix3 v)   => v.length;
-    //public static fix length(fix4 v)   => v.length;
-    //public static fix lengthsq(fix2 v) => v.lengthSquared;
-    //public static fix lengthsq(fix3 v) => v.lengthSquared;
-    //public static fix lengthsq(fix4 v) => v.lengthSquared;
-
-    //public static fix2 normalize(fix2 v) => global::fix2.Normalize(v);
-    //public static fix3 normalize(fix3 v) => global::fix3.Normalize(v);
-    //public static fix4 normalize(fix4 v) => global::fix4.Normalize(v);
-
-    //public static fix  round(fix v)  =>      global::fix.Round(v);
-    //public static fix2 round(fix2 v) => fix2(global::fix.Round(v.x), global::fix.Round(v.y));
-    //public static fix3 round(fix3 v) => fix3(global::fix.Round(v.x), global::fix.Round(v.y), global::fix.Round(v.z));
-    //public static fix4 round(fix4 v) => fix4(global::fix.Round(v.x), global::fix.Round(v.y), global::fix.Round(v.z), global::fix.Round(v.w));
-
 }

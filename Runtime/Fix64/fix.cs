@@ -17,7 +17,6 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
     public static fix MinValue => new fix(MIN_VALUE);
     public static fix One => new fix(ONE);
     public static fix Zero => new fix();
-    public static readonly fix Zero2 = new fix();
     public static fix Half => new fix(HALF);
     /// <summary>
     /// The value of Pi
@@ -25,8 +24,6 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
     public static fix Pi => new fix(PI);
     public static fix PiOver2 => new fix(PI_OVER_2);
     public static fix PiTimes2 => new fix(PI_TIMES_2);
-    public static fix PiInv => (fix)0.3183098861837906715377675267M;
-    public static fix PiOver2Inv => (fix)0.6366197723675813430755350535M;
     static fix Log2Max => new fix(LOG2MAX);
     static fix Log2Min => new fix(LOG2MIN);
     static fix Ln2 => new fix(LN2);
@@ -973,14 +970,6 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
     {
         return (double)value.RawValue / ONE;
     }
-    public static explicit operator fix(decimal value)
-    {
-        return new fix((long)(value * ONE));
-    }
-    public static explicit operator decimal(fix value)
-    {
-        return (decimal)value.RawValue / ONE;
-    }
 
     public override bool Equals(object obj)
     {
@@ -1005,12 +994,12 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
     public override string ToString()
     {
         // Up to 10 decimal places
-        return ((decimal)this).ToString("0.##########");
+        return ((double)this).ToString("0.##########");
     }
 
     public string ToString(string format, IFormatProvider formatProvider)
     {
-        return ((decimal)this).ToString(format, formatProvider);
+        return ((double)this).ToString(format, formatProvider);
     }
 
     public static fix FromRaw(long rawValue)

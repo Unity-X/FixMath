@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿using System.Runtime.CompilerServices;
+/// <summary>
 /// 2 row, 2 column matrix.
 /// </summary>
 [System.Serializable]
@@ -46,6 +47,16 @@ public struct fix2x2
     public static fix2x2 Identity
     {
         get { return new fix2x2(F64.C1, F64.C0, F64.C0, F64.C1); }
+    }
+
+    /// <summary>Returns a float2x2 matrix representing a counter-clockwise rotation of angle degrees.</summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix2x2 Rotate(fix angle)
+    {
+        fix s, c;
+        fixMath.sincos(angle, out s, out c);
+        return new fix2x2(c, -s,
+                          s, c);
     }
 
     /// <summary>
