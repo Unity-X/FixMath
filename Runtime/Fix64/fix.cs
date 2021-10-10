@@ -43,6 +43,9 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
     const long LOG2MIN = -0x2000000000;
     const int LUT_SIZE = (int)(PI_OVER_2 >> 15);
 
+    public static fix operator ++(fix x) => x + new fix(ONE);
+    public static fix operator --(fix x) => x - new fix(ONE);
+
     /// <summary>
     /// Returns a number indicating the sign of a Fix64 number.
     /// Returns 1 if the value is positive, 0 if is 0, and -1 if it is negative.
