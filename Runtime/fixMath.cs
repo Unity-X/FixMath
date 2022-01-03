@@ -9,6 +9,7 @@ using static Unity.Mathematics.math;
 /// </summary>
 public static partial class fixMath
 {
+#pragma warning disable IDE1006 // Naming Styles
     /// <summary>
     /// Approximate value of Pi.
     /// </summary>
@@ -135,7 +136,7 @@ public static partial class fixMath
         return length(a - b) < epsilon;
     }
 
-    public static fix movetowards(fix current, fix target, fix maxDistanceDelta)
+    public static fix moveTowards(fix current, fix target, fix maxDistanceDelta)
     {
         fix delta = target - current;
         fix dir = sign(delta);
@@ -144,7 +145,7 @@ public static partial class fixMath
         return current + (dir * maxDistanceDelta);
     }
 
-    public static fix2 movetowards(fix2 current, fix2 target, fix maxDistanceDelta)
+    public static fix2 moveTowards(fix2 current, fix2 target, fix maxDistanceDelta)
     {
         fix2 delta = target - current;
         fix sqdist = lengthsq(delta);
@@ -158,20 +159,57 @@ public static partial class fixMath
         return current + (dir * maxDistanceDelta);
     }
 
+    public static fix2 rotateTowards(fix2 currentVector, fix targetAngle, fix maxDeltaAngle)
+    {
+        fix angle = angle2d(currentVector);
+
+        fix newAngle = moveTowardsAngle(angle, targetAngle, maxDeltaAngle);
+
+        return rotate(currentVector, newAngle - angle);
+    }
+
+    public static fix moveTowardsAngle(fix current, fix target, fix maxDelta)
+    {
+        fix deltaAngle = distanceAngle(current, target);
+        if (-maxDelta < deltaAngle && deltaAngle < maxDelta)
+            return target;
+        target = current + deltaAngle;
+        return moveTowards(current, target, maxDelta);
+    }
+
+    /// <summary>
+    /// Calculates the shortest difference between two given angles.
+    /// </summary>
+    public static fix distanceAngle(fix current, fix target)
+    {
+        fix delta = repeat(target - current, TwoPi);
+        if (delta > Pi)
+            delta -= TwoPi;
+        return delta;
+    }
+
+    /// <summary>
+    /// Loops the value t, so that it is never larger than length and never smaller than 0. 
+    /// </summary>
+    public static fix repeat(fix t, fix length)
+    {
+        return clamp(t - floor(t / length) * length, 0, length);
+    }
+
     public static fix2 clampLength(fix2 v, fix min, fix max)
     {
-        fix l = fixMath.length(v);
+        fix l = length(v);
         if (l <= global::fix.Epsilon)
             return new fix2(min, 0);
-        return fixMath.clamp(l, min, max) * (v / l);
+        return clamp(l, min, max) * (v / l);
     }
 
     public static fix3 clampLength(fix3 v, fix min, fix max)
     {
-        fix l = fixMath.length(v);
+        fix l = length(v);
         if (l <= global::fix.Epsilon)
             return new fix3(min, 0, 0);
-        return fixMath.clamp(l, min, max) * (v / l);
+        return clamp(l, min, max) * (v / l);
     }
 
 
@@ -310,4 +348,5 @@ public static partial class fixMath
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fix atan2(fix y, fix x) => global::fix.Atan2(y, x);
+#pragma warning restore IDE1006 // Naming Styles
 }
