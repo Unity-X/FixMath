@@ -30,6 +30,11 @@ public static partial class fixMath
     /// </summary>
     internal static readonly fix PiOver4 = global::fix.Pi / new fix(4);
 
+    /// <summary>
+    /// Up Vector in Radian.
+    /// </summary>
+    public static readonly fix Angle2DUp = global::fix.PiOver2;
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool samesign(fix a, fix b)
     {
