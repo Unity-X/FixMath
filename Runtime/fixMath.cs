@@ -35,6 +35,11 @@ public static partial class fixMath
     /// </summary>
     public static readonly fix Angle2DUp = global::fix.PiOver2;
 
+    /// <summary>
+    /// Down Vector in Radian.
+    /// </summary>
+    public static readonly fix Angle2DDown = 3 * global::fix.PiOver2;
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool samesign(fix a, fix b)
     {
