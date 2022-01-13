@@ -31,14 +31,24 @@ public static partial class fixMath
     internal static readonly fix PiOver4 = global::fix.Pi / new fix(4);
 
     /// <summary>
-    /// Up Vector in Radian.
+    /// Up angle in Radian.
     /// </summary>
     public static readonly fix Angle2DUp = global::fix.PiOver2;
 
     /// <summary>
-    /// Down Vector in Radian.
+    /// Down angle in Radian.
     /// </summary>
     public static readonly fix Angle2DDown = 3 * global::fix.PiOver2;
+
+    /// <summary>
+    /// Left angle in Radian.
+    /// </summary>
+    public static readonly fix Angle2DLeft = global::fix.Pi;
+
+    /// <summary>
+    /// Right angle in Radian.
+    /// </summary>
+    public static readonly fix Angle2DRight = 0;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool samesign(fix a, fix b)

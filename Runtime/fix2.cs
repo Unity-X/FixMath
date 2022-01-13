@@ -49,6 +49,13 @@ public struct fix2 : IEquatable<fix2>
     /// <returns>Length of the vector.</returns>
     public fix length => fix.Sqrt(x * x + y * y);
 
+    public static fix2 FromAngle(fix radians)
+    {
+        return new fix2(
+            fixMath.cos(radians),    // x
+            fixMath.sin(radians));   // y
+    }
+
     /// <summary>
     /// Gets a string representation of the vector.
     /// </summary>
