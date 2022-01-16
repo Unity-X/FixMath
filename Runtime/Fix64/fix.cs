@@ -895,7 +895,7 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
         return result;
     }
 
-    public static fix Atan2(fix y, fix x)
+    public static fix FastAtan2(fix y, fix x)
     {
         var yl = y.RawValue;
         var xl = x.RawValue;
@@ -940,6 +940,39 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
                 return atan - Pi;
             }
         }
+        return atan;
+    }
+
+    public static fix Atan2(fix y, fix x)
+    {
+        var yl = y.RawValue;
+        var xl = x.RawValue;
+        if (xl == 0)
+        {
+            if (yl > 0)
+                return PiOver2;
+            if (yl == 0)
+                return Zero;
+            return -PiOver2;
+        }
+
+        var z = y / x;
+
+        // Deal with overflow
+        if (One + ((fix)0.28M * z * z) == MaxValue)
+        {
+            return y.RawValue < 0 ? -PiOver2 : PiOver2;
+        }
+
+        fix atan = Atan(z);
+
+        if (xl < 0)
+        {
+            if (yl < 0)
+                return atan - Pi;
+            return atan + Pi;
+        }
+
         return atan;
     }
 

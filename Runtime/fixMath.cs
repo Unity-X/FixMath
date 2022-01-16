@@ -367,6 +367,9 @@ public static partial class fixMath
     public static fix fcos(fix x) => global::fix.FastCos(x);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fix fatan2(fix y, fix x) => global::fix.FastAtan2(y, x);
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fix atan2(fix y, fix x) => global::fix.Atan2(y, x);
 #pragma warning restore IDE1006 // Naming Styles
 }
