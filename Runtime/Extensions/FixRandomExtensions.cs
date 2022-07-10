@@ -143,7 +143,7 @@ public static class FixRandomExtensions
     /// <summary>
     /// Shuffle your list with simulation random
     /// </summary>
-    public static void Shuffle<T>(this ref FixRandom random, Unity.Collections.NativeList<T> collection) where T : struct
+    public static void Shuffle<T>(this ref FixRandom random, NativeList<T> collection) where T : unmanaged
     {
         Shuffle(ref random, collection.AsArray());
     }
