@@ -93,6 +93,8 @@ public static partial class fixMath
         /// Given a displacement, a launch angle and a gravity, returns the required launch speed of a projectile.
         /// <para/>
         /// <b>NB:</b> If gravity is 0, the return value will be 0.
+        /// <para/>
+        /// <b>NB:</b> If the displacement is impossible to produce with the angle and gravity, the return value will be -1.
         /// </summary>
         /// <param name="dx">The horizontal displacement. finalPosition.x - startPosition.x</param>
         /// <param name="dy">The vertical displacement. finalPosition.y - startPosition.y</param>
@@ -131,7 +133,10 @@ public static partial class fixMath
             }
 
             // 2D calculations
-            return dx / (sqrt(2 * (dy - (dx * sin / cos)) / g) * cos);
+            fix sqrtVal = 2 * (dy - (dx * sin / cos)) / g;
+            if (sqrtVal < 0) // impossible to reach the target
+                return -1;
+            return dx / (sqrt(sqrtVal) * cos);
         }
 
         public static fix2 Position(fix2 startingPosition, fix2 startVelocity, fix2 gravity, fix time)
