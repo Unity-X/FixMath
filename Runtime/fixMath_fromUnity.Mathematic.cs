@@ -27,7 +27,7 @@ public static partial class fixMath
     public const double SQRT2_DBL = 1.41421356237309504880;
 
     /// <summary>The smallest positive normal number representable in a fix.</summary>
-    public static fix FLT_MIN_NORMAL => fix(1.175494351e-38F); // TODO fbessette
+    public static fix FLT_MIN_NORMAL => global::fix.Epsilon;
 
     /// <summary>The mathematical constant e also known as Euler's number. Approximately 2.72.</summary>
     public static fix E => (fix)E_DBL;
@@ -503,7 +503,7 @@ public static partial class fixMath
     static public fix2 normalizesafe(fix2 x, fix2 defaultvalue = new fix2())
     {
         fix len = dot(x, x);
-        return select(defaultvalue, x * rsqrt(len), len > FLT_MIN_NORMAL);
+        return len > FLT_MIN_NORMAL ? x * rsqrt(len) : defaultvalue;
     }
 
     /// <summary>
@@ -514,7 +514,7 @@ public static partial class fixMath
     static public fix3 normalizesafe(fix3 x, fix3 defaultvalue = new fix3())
     {
         fix len = dot(x, x);
-        return select(defaultvalue, x * rsqrt(len), len > FLT_MIN_NORMAL);
+        return len > FLT_MIN_NORMAL ? x * rsqrt(len) : defaultvalue;
     }
 
     /// <summary>
@@ -525,7 +525,7 @@ public static partial class fixMath
     static public fix4 normalizesafe(fix4 x, fix4 defaultvalue = new fix4())
     {
         fix len = dot(x, x);
-        return select(defaultvalue, x * rsqrt(len), len > FLT_MIN_NORMAL);
+        return len > FLT_MIN_NORMAL ? x * rsqrt(len) : defaultvalue;
     }
 
 

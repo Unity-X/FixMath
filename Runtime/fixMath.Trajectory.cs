@@ -190,7 +190,7 @@ public static partial class fixMath
 
             fix c = -k * (srp * (ag + bh) * srv + bgah2 * log(max(srp * srv + ag + bh, (fix)0.0001f)));
             fix longSquareRoot = sqrt(v + (2 * ag * x) + (2 * bh * x) + (p * x * x));
-            return k * (srp * (ag + bh + x * p) * longSquareRoot + bgah2 * log(srp * longSquareRoot + ag + bh + g * g * x + h * h * x)) + c;
+            return k * (srp * (ag + bh + x * p) * longSquareRoot + bgah2 * log(max(srp * longSquareRoot + ag + bh + g * g * x + h * h * x, (fix)0.0001f))) + c;
         }
 
         /// <summary>
