@@ -63,7 +63,7 @@ public static partial class fixMath
     /// <param name="dividend">Dividend</param>
     /// <param name="divisor">Divisor</param>
     /// <returns>Remainder</returns>
-    internal static fix IEEERemainder(fix dividend,  fix divisor)
+    internal static fix IEEERemainder(fix dividend, fix divisor)
     {
         return dividend - (divisor * global::fix.Round(dividend / divisor));
     }
@@ -96,7 +96,7 @@ public static partial class fixMath
     /// <param name="min">Minimum value.  If the value is less than this, the minimum is returned instead.</param>
     /// <param name="max">Maximum value.  If the value is more than this, the maximum is returned instead.</param>
     /// <returns>Clamped value.</returns>
-    internal static fix Clamp(fix value,  fix min,  fix max)
+    internal static fix Clamp(fix value, fix min, fix max)
     {
         if (value < min)
             return min;
@@ -111,7 +111,7 @@ public static partial class fixMath
     /// <param name="a">First value.</param>
     /// <param name="b">Second value.</param>
     /// <returns>Higher value of the two parameters.</returns>
-    internal static fix Max(fix a,  fix b)
+    internal static fix Max(fix a, fix b)
     {
         return a > b ? a : b;
     }
@@ -122,7 +122,7 @@ public static partial class fixMath
     /// <param name="a">First value.</param>
     /// <param name="b">Second value.</param>
     /// <returns>Lower value of the two parameters.</returns>
-    internal static fix Min(fix a,  fix b)
+    internal static fix Min(fix a, fix b)
     {
         return a < b ? a : b;
     }
@@ -132,26 +132,26 @@ public static partial class fixMath
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fix rad(fix degrees) => degrees * F64.CPiOver180;
-    
+
     /// <summary>
     /// Converts radians to degrees.
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fix deg(fix radians) => radians * F64.C180OverPi;
 
-    public static bool3 almostEqual(fix3 a,  fix3 b) => almostEqual(a, b, fix(0.0001));
-    public static bool2 almostEqual(fix2 a,  fix2 b) => almostEqual(a, b, fix(0.0001));
-    public static bool almostEqual(fix a,  fix b) => almostEqual(a, b, fix(0.0001));
+    public static bool3 almostEqual(fix3 a, fix3 b) => almostEqual(a, b, fix(0.0001));
+    public static bool2 almostEqual(fix2 a, fix2 b) => almostEqual(a, b, fix(0.0001));
+    public static bool almostEqual(fix a, fix b) => almostEqual(a, b, fix(0.0001));
 
-    public static bool3 almostEqual(fix3 a,  fix3 b,  fix epsilon)
+    public static bool3 almostEqual(fix3 a, fix3 b, fix epsilon)
     {
         return bool3(almostEqual(a.x, b.x, epsilon), almostEqual(a.y, b.y, epsilon), almostEqual(a.z, b.z, epsilon));
     }
-    public static bool2 almostEqual(fix2 a,  fix2 b,  fix epsilon)
+    public static bool2 almostEqual(fix2 a, fix2 b, fix epsilon)
     {
         return bool2(almostEqual(a.x, b.x, epsilon), almostEqual(a.y, b.y, epsilon));
     }
-    public static bool almostEqual(fix a,  fix b,  fix epsilon)
+    public static bool almostEqual(fix a, fix b, fix epsilon)
     {
         return length(a - b) < epsilon;
     }
@@ -190,22 +190,30 @@ public static partial class fixMath
 
     public static fix moveTowardsAngle(fix current, fix target, fix maxDelta)
     {
-        fix deltaAngle = distanceAngle(current, target);
-        if (-maxDelta < deltaAngle && deltaAngle < maxDelta)
+        fix delta = deltaAngle(current, target);
+        if (-maxDelta < delta && delta < maxDelta)
             return target;
-        target = current + deltaAngle;
+        target = current + delta;
         return moveTowards(current, target, maxDelta);
     }
 
     /// <summary>
-    /// Calculates the shortest difference between two given angles.
+    /// Calculates the shortest difference between two given angles (between PI and -PI).
     /// </summary>
-    public static fix distanceAngle(fix current, fix target)
+    public static fix deltaAngle(fix current, fix target)
     {
         fix delta = repeat(target - current, TwoPi);
         if (delta > Pi)
             delta -= TwoPi;
         return delta;
+    }
+
+    /// <summary>
+    /// The angle between two vectors (between PI and -PI).
+    /// </summary>
+    public static fix angleBetween(fix2 v1, fix2 v2)
+    {
+        return atan2((v2.y * v1.x) - (v2.x * v1.y), (v2.x * v1.x) + (v2.y * v1.y));
     }
 
     /// <summary>
@@ -234,57 +242,57 @@ public static partial class fixMath
 
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix fix(int value)                                => new fix(value);
+    public static fix fix(int value) => new fix(value);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix fix(float value)                              => (fix)value;
+    public static fix fix(float value) => (fix)value;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix fix(double value)                             => (fix)value;
+    public static fix fix(double value) => (fix)value;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix2 fix2(fix v)                                => new fix2(v, v);
+    public static fix2 fix2(fix v) => new fix2(v, v);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(fix v)                                => new fix3(v, v, v);
+    public static fix3 fix3(fix v) => new fix3(v, v, v);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix4 fix4(fix v)                                => new fix4(v, v, v, v);
+    public static fix4 fix4(fix v) => new fix4(v, v, v, v);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix2 fix2(fix x,  fix y)                      => new fix2(x, y);
+    public static fix2 fix2(fix x, fix y) => new fix2(x, y);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(fix x,  fix y,  fix z)            => new fix3(x, y, z);
+    public static fix3 fix3(fix x, fix y, fix z) => new fix3(x, y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix4 fix4(fix x,  fix y,  fix z,  fix w)  => new fix4(x, y, z, w);
+    public static fix4 fix4(fix x, fix y, fix z, fix w) => new fix4(x, y, z, w);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix2 fix2(int x,  int y)                      => new fix2(x, y);
+    public static fix2 fix2(int x, int y) => new fix2(x, y);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(int x,  int y,  int z)            => new fix3(x, y, z);
+    public static fix3 fix3(int x, int y, int z) => new fix3(x, y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix4 fix4(int x,  int y,  int z,  int w)  => new fix4(x, y, z, w);
+    public static fix4 fix4(int x, int y, int z, int w) => new fix4(x, y, z, w);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(fix2 xy,  fix z)                    => new fix3(xy.x, xy.y, z);
+    public static fix3 fix3(fix2 xy, fix z) => new fix3(xy.x, xy.y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(fix x,  fix2 yz)                    => new fix3(x, yz.x, yz.y);
+    public static fix3 fix3(fix x, fix2 yz) => new fix3(x, yz.x, yz.y);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(fix2 xy,  int z)                    => new fix3(xy.x, xy.y, z);
+    public static fix3 fix3(fix2 xy, int z) => new fix3(xy.x, xy.y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(int x,  fix2 yz)                    => new fix3(x, yz.x, yz.y);
+    public static fix3 fix3(int x, fix2 yz) => new fix3(x, yz.x, yz.y);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(int2 xy,  int z)                    => new fix3(xy.x, xy.y, z);
+    public static fix3 fix3(int2 xy, int z) => new fix3(xy.x, xy.y, z);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static fix3 fix3(int x,  int2 yz)                    => new fix3(x, yz.x, yz.y);
+    public static fix3 fix3(int x, int2 yz) => new fix3(x, yz.x, yz.y);
 
-    public static int  roundToInt(fix v)  =>      global::fix.RoundToInt(v);
+    public static int roundToInt(fix v) => global::fix.RoundToInt(v);
     public static int2 roundToInt(fix2 v) => int2(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y));
     public static int3 roundToInt(fix3 v) => int3(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z));
     public static int4 roundToInt(fix4 v) => int4(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z), global::fix.RoundToInt(v.w));
-    
-    public static int  floorToInt(fix v)  =>      global::fix.FloorToInt(v);
+
+    public static int floorToInt(fix v) => global::fix.FloorToInt(v);
     public static int2 floorToInt(fix2 v) => int2(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y));
     public static int3 floorToInt(fix3 v) => int3(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y), global::fix.FloorToInt(v.z));
     public static int4 floorToInt(fix4 v) => int4(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y), global::fix.FloorToInt(v.z), global::fix.FloorToInt(v.w));
-    
-    public static int  ceilToInt(fix v)  =>      global::fix.CeilingToInt(v);
+
+    public static int ceilToInt(fix v) => global::fix.CeilingToInt(v);
     public static int2 ceilToInt(fix2 v) => int2(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y));
     public static int3 ceilToInt(fix3 v) => int3(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y), global::fix.CeilingToInt(v.z));
     public static int4 ceilToInt(fix4 v) => int4(global::fix.CeilingToInt(v.x), global::fix.CeilingToInt(v.y), global::fix.CeilingToInt(v.z), global::fix.CeilingToInt(v.w));
@@ -368,7 +376,7 @@ public static partial class fixMath
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fix fatan2(fix y, fix x) => global::fix.FastAtan2(y, x);
-    
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fix atan2(fix y, fix x) => global::fix.Atan2(y, x);
 #pragma warning restore IDE1006 // Naming Styles
