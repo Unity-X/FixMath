@@ -42,7 +42,7 @@ public struct FixRandom
 
     /// <summary>Returns a uniformly random fix value in the interval [0, 1].</summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public fix NextFixRatio() => ((new fix(NextInt(0, int.MaxValue)) / new fix(int.MaxValue)) + 1) / (fix)2;
+    public fix NextFixRatio() => new fix(NextInt(0, int.MaxValue)) / new fix(int.MaxValue);
 
     /// <summary>Returns a uniformly random int value in the interval [-2147483647, 2147483647].</summary>
     /// <returns>A uniformly random integer value.</returns>
