@@ -287,6 +287,40 @@ public static partial class fixMath
     public static int3 roundToInt(fix3 v) => int3(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z));
     public static int4 roundToInt(fix4 v) => int4(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z), global::fix.RoundToInt(v.w));
 
+    /// <summary>Returns the result of rounding a fix value to the specified number of decimals.</summary>
+    public static fix roundDecimals(fix x, int decimalCount)
+    {
+        fix d = pow(10, decimalCount);
+        return roundDecimalsInternal(x, d);
+    }
+
+    /// <summary>Returns the result of rounding each component of a fix2 vector value to the specified number of decimals.</summary>
+    public static fix2 roundDecimals(fix2 x, int decimalCount)
+    {
+        fix d = pow(10, decimalCount);
+        return new fix2(roundDecimalsInternal(x.x, d), roundDecimalsInternal(x.y, d));
+    }
+
+    /// <summary>Returns the result of rounding each component of a fix3 vector value to the specified number of decimals.</summary>
+    public static fix3 roundDecimals(fix3 x, int decimalCount)
+    {
+        fix d = pow(10, decimalCount);
+        return new fix3(roundDecimalsInternal(x.x, d), roundDecimalsInternal(x.y, d), roundDecimalsInternal(x.z, d));
+    }
+
+    /// <summary>Returns the result of rounding each component of a fix4 vector value to the specified number of decimals.</summary>
+    public static fix4 roundDecimals(fix4 x, int decimalCount)
+    {
+        fix d = pow(10, decimalCount);
+        return new fix4(roundDecimalsInternal(x.x, d), roundDecimalsInternal(x.y, d), roundDecimalsInternal(x.z, d), roundDecimalsInternal(x.w, d));
+    }
+
+    private static fix roundDecimalsInternal(fix x, fix divisor)
+    {
+        return global::fix.Round(x * divisor) / divisor;
+    }
+
+
     public static int floorToInt(fix v) => global::fix.FloorToInt(v);
     public static int2 floorToInt(fix2 v) => int2(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y));
     public static int3 floorToInt(fix3 v) => int3(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y), global::fix.FloorToInt(v.z));
