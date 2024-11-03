@@ -1038,6 +1038,11 @@ public partial struct fix : IEquatable<fix>, IComparable<fix>, IFormattable
         return ((double)this).ToString(format, formatProvider);
     }
 
+    public string ToString(string format)
+    {
+        return ((double)this).ToString(format);
+    }
+
     public static fix FromRaw(long rawValue)
     {
         return new fix(rawValue);
