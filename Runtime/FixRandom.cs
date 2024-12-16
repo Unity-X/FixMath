@@ -7,6 +7,8 @@ public struct FixRandom
 {
     Unity.Mathematics.Random _random;
 
+    public uint State => _random.state;
+
     /// <summary>Initialises a new instance using an int value as seed.</summary>
     public FixRandom(int seed) : this((uint)seed) { }
 
