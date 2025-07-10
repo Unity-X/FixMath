@@ -287,6 +287,9 @@ public static partial class fixMath
     public static int3 roundToInt(fix3 v) => int3(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z));
     public static int4 roundToInt(fix4 v) => int4(global::fix.RoundToInt(v.x), global::fix.RoundToInt(v.y), global::fix.RoundToInt(v.z), global::fix.RoundToInt(v.w));
 
+    public static fix roundStep(fix v, fix stepSize)
+        => roundToInt(v / stepSize) * stepSize;
+
     /// <summary>Returns the result of rounding a fix value to the specified number of decimals.</summary>
     public static fix roundDecimals(fix x, int decimalCount)
     {
@@ -319,7 +322,6 @@ public static partial class fixMath
     {
         return global::fix.Round(x * divisor) / divisor;
     }
-
 
     public static int floorToInt(fix v) => global::fix.FloorToInt(v);
     public static int2 floorToInt(fix2 v) => int2(global::fix.FloorToInt(v.x), global::fix.FloorToInt(v.y));
