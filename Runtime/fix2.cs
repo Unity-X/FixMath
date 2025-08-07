@@ -23,7 +23,7 @@ public struct fix2 : IEquatable<fix2>
     /// </summary>
     /// <param name="x">X component of the vector.</param>
     /// <param name="y">Y component of the vector.</param>
-    public fix2(fix x,  fix y)
+    public fix2(fix x, fix y)
     {
         this.x = x;
         this.y = y;
@@ -41,13 +41,34 @@ public struct fix2 : IEquatable<fix2>
     /// Computes the squared length of the vector.
     /// </summary>
     /// <returns>Squared length of the vector.</returns>
-    public fix lengthSquared => x * x + y * y;
+    public fix lengthSquared => (x * x) + (y * y);
 
     /// <summary>
     /// Computes the length of the vector.
     /// </summary>
     /// <returns>Length of the vector.</returns>
-    public fix length => fix.Sqrt(x * x + y * y);
+    public fix length => fix.Sqrt((x * x) + (y * y));
+
+    /// <summary>Returns the fix element at a specified index.</summary>
+    unsafe public fix this[int index]
+    {
+        get
+        {
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+            if ((uint)index >= 2)
+                throw new System.ArgumentException("index must be between[0...1]");
+#endif
+            fixed (fix2* array = &this) { return ((fix*)array)[index]; }
+        }
+        set
+        {
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+            if ((uint)index >= 2)
+                throw new System.ArgumentException("index must be between[0...1]");
+#endif
+            fixed (fix* array = &x) { array[index] = value; }
+        }
+    }
 
     public static fix2 FromAngle(fix radians)
     {
@@ -71,7 +92,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First vector to add.</param>
     /// <param name="b">Second vector to add.</param>
     /// <param name="sum">Sum of the two vectors.</param>
-    public static void Add(fix2 a,  fix2 b, out fix2 sum)
+    public static void Add(fix2 a, fix2 b, out fix2 sum)
     {
         sum.x = a.x + b.x;
         sum.y = a.y + b.y;
@@ -83,7 +104,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">Vector to subtract from.</param>
     /// <param name="b">Vector to subtract from the first vector.</param>
     /// <param name="difference">Result of the subtraction.</param>
-    public static void Subtract(fix2 a,  fix2 b, out fix2 difference)
+    public static void Subtract(fix2 a, fix2 b, out fix2 difference)
     {
         difference.x = a.x - b.x;
         difference.y = a.y - b.y;
@@ -107,7 +128,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First vector to multiply.</param>
     /// <param name="b">Second vector to multiply.</param>
     /// <param name="result">Result of the componentwise multiplication.</param>
-    public static void Multiply(fix2 a,  fix2 b, out fix2 result)
+    public static void Multiply(fix2 a, fix2 b, out fix2 result)
     {
         result.x = a.x * b.x;
         result.y = a.y * b.y;
@@ -132,9 +153,9 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First vector of the dot product.</param>
     /// <param name="b">Second vector of the dot product.</param>
     /// <param name="dot">Dot product of the two vectors.</param>
-    public static void Dot(fix2 a,  fix2 b, out fix dot)
+    public static void Dot(fix2 a, fix2 b, out fix dot)
     {
-        dot = a.x * b.x + a.y * b.y;
+        dot = (a.x * b.x) + (a.y * b.y);
     }
 
     /// <summary>
@@ -143,9 +164,9 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First vector of the dot product.</param>
     /// <param name="b">Second vector of the dot product.</param>
     /// <returns>Dot product of the two vectors.</returns>
-    public static fix Dot(fix2 a,  fix2 b)
+    public static fix Dot(fix2 a, fix2 b)
     {
-        return a.x * b.x + a.y * b.y;
+        return (a.x * b.x) + (a.y * b.y);
     }
 
     /// <summary>
@@ -167,7 +188,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="result">Normalized vector.</param>
     public static void Normalize(fix2 v, out fix2 result)
     {
-        fix inverse = F64.C1 / fix.Sqrt(v.x * v.x + v.y * v.y);
+        fix inverse = F64.C1 / fix.Sqrt((v.x * v.x) + (v.y * v.y));
         result.x = v.x * inverse;
         result.y = v.y * inverse;
     }
@@ -218,7 +239,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <param name="min">Vector containing the lesser values of each vector.</param>
-    public static void Min(fix2 a,  fix2 b, out fix2 min)
+    public static void Min(fix2 a, fix2 b, out fix2 min)
     {
         min.x = a.x < b.x ? a.x : b.x;
         min.y = a.y < b.y ? a.y : b.y;
@@ -230,10 +251,10 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <returns>Vector containing the lesser values of each vector.</returns>
-    public static fix2 Min(fix2 a,  fix2 b)
+    public static fix2 Min(fix2 a, fix2 b)
     {
         fix2 result;
-        Min(a,  b, out result);
+        Min(a, b, out result);
         return result;
     }
 
@@ -243,7 +264,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <param name="max">Vector containing the greater values of each vector.</param>
-    public static void Max(fix2 a,  fix2 b, out fix2 max)
+    public static void Max(fix2 a, fix2 b, out fix2 max)
     {
         max.x = a.x > b.x ? a.x : b.x;
         max.y = a.y > b.y ? a.y : b.y;
@@ -255,10 +276,10 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <returns>Vector containing the greater values of each vector.</returns>
-    public static fix2 Max(fix2 a,  fix2 b)
+    public static fix2 Max(fix2 a, fix2 b)
     {
         fix2 result;
-        Max(a,  b, out result);
+        Max(a, b, out result);
         return result;
     }
 
@@ -267,7 +288,7 @@ public struct fix2 : IEquatable<fix2>
     /// </summary>
     public void Normalize()
     {
-        fix inverse = F64.C1 / fix.Sqrt(x * x + y * y);
+        fix inverse = F64.C1 / fix.Sqrt((x * x) + (y * y));
         x *= inverse;
         y *= inverse;
     }
@@ -279,7 +300,7 @@ public struct fix2 : IEquatable<fix2>
     {
         get
         {
-            fix inverse = F64.C1 / fix.Sqrt(x * x + y * y);
+            fix inverse = F64.C1 / fix.Sqrt((x * x) + (y * y));
             return new fix2(x * inverse, y * inverse);
         }
     }
@@ -290,7 +311,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="v">Vector to scale.</param>
     /// <param name="f">Amount to scale.</param>
     /// <returns>Scaled vector.</returns>
-    public static fix2 operator *(fix2 v,  fix f)
+    public static fix2 operator *(fix2 v, fix f)
     {
         fix2 toReturn;
         toReturn.x = v.x * f;
@@ -303,7 +324,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="v">Vector to scale.</param>
     /// <param name="f">Amount to scale.</param>
     /// <returns>Scaled vector.</returns>
-    public static fix2 operator *(fix f,  fix2 v)
+    public static fix2 operator *(fix f, fix2 v)
     {
         fix2 toReturn;
         toReturn.x = v.x * f;
@@ -317,10 +338,10 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First vector to multiply.</param>
     /// <param name="b">Second vector to multiply.</param>
     /// <returns>Result of the componentwise multiplication.</returns>
-    public static fix2 operator *(fix2 a,  fix2 b)
+    public static fix2 operator *(fix2 a, fix2 b)
     {
         fix2 result;
-        Multiply(a,  b, out result);
+        Multiply(a, b, out result);
         return result;
     }
 
@@ -361,7 +382,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">Vector to be subtracted from.</param>
     /// <param name="b">Vector to subtract from the first vector.</param>
     /// <returns>Resulting difference.</returns>
-    public static fix2 operator -(fix2 a,  fix2 b)
+    public static fix2 operator -(fix2 a, fix2 b)
     {
         fix2 v;
         v.x = a.x - b.x;
@@ -375,7 +396,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First vector to add.</param>
     /// <param name="b">Second vector to add.</param>
     /// <returns>Sum of the addition.</returns>
-    public static fix2 operator +(fix2 a,  fix2 b)
+    public static fix2 operator +(fix2 a, fix2 b)
     {
         fix2 v;
         v.x = a.x + b.x;
@@ -399,7 +420,7 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First vector to test for equivalence.</param>
     /// <param name="b">Second vector to test for equivalence.</param>
     /// <returns>Whether the vectors were equivalent.</returns>
-    public static bool operator ==(fix2 a,  fix2 b)
+    public static bool operator ==(fix2 a, fix2 b)
     {
         return a.x == b.x && a.y == b.y;
     }
@@ -409,27 +430,27 @@ public struct fix2 : IEquatable<fix2>
     /// <param name="a">First vector to test for inequivalence.</param>
     /// <param name="b">Second vector to test for inequivalence.</param>
     /// <returns>Whether the vectors were inequivalent.</returns>
-    public static bool operator !=(fix2 a,  fix2 b)
+    public static bool operator !=(fix2 a, fix2 b)
     {
         return a.x != b.x || a.y != b.y;
     }
-    
-    public static bool2 operator >(fix2 a,  fix2 b)
+
+    public static bool2 operator >(fix2 a, fix2 b)
     {
         return new bool2(a.x > b.x, a.y > b.y);
     }
 
-    public static bool2 operator <(fix2 a,  fix2 b)
+    public static bool2 operator <(fix2 a, fix2 b)
     {
         return new bool2(a.x < b.x, a.y < b.y);
     }
 
-    public static bool2 operator >=(fix2 a,  fix2 b)
+    public static bool2 operator >=(fix2 a, fix2 b)
     {
         return new bool2(a.x >= b.x, a.y >= b.y);
     }
 
-    public static bool2 operator <=(fix2 a,  fix2 b)
+    public static bool2 operator <=(fix2 a, fix2 b)
     {
         return new bool2(a.x <= b.x, a.y <= b.y);
     }

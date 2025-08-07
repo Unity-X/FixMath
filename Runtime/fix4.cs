@@ -31,7 +31,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="y">Y component of the vector.</param>
     /// <param name="z">Z component of the vector.</param>
     /// <param name="w">W component of the vector.</param>
-    public fix4(fix x,  fix y,  fix z,  fix w)
+    public fix4(fix x, fix y, fix z, fix w)
     {
         this.x = x;
         this.y = y;
@@ -44,7 +44,7 @@ public struct fix4 : IEquatable<fix4>
     /// </summary>
     /// <param name="xyz">X, Y, and Z components of the vector.</param>
     /// <param name="w">W component of the vector.</param>
-    public fix4(fix3 xyz,  fix w)
+    public fix4(fix3 xyz, fix w)
     {
         this.x = xyz.x;
         this.y = xyz.y;
@@ -58,7 +58,7 @@ public struct fix4 : IEquatable<fix4>
     /// </summary>
     /// <param name="x">X component of the vector.</param>
     /// <param name="yzw">Y, Z, and W components of the vector.</param>
-    public fix4(fix x,  fix3 yzw)
+    public fix4(fix x, fix3 yzw)
     {
         this.x = x;
         this.y = yzw.x;
@@ -72,7 +72,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="xy">X and Y components of the vector.</param>
     /// <param name="z">Z component of the vector.</param>
     /// <param name="w">W component of the vector.</param>
-    public fix4(fix2 xy,  fix z,  fix w)
+    public fix4(fix2 xy, fix z, fix w)
     {
         this.x = xy.x;
         this.y = xy.y;
@@ -86,7 +86,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="x">X component of the vector.</param>
     /// <param name="yz">Y and Z components of the vector.</param>
     /// <param name="w">W component of the vector.</param>
-    public fix4(fix x,  fix2 yz,  fix w)
+    public fix4(fix x, fix2 yz, fix w)
     {
         this.x = x;
         this.y = yz.x;
@@ -100,7 +100,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="x">X component of the vector.</param>
     /// <param name="y">Y and Z components of the vector.</param>
     /// <param name="zw">W component of the vector.</param>
-    public fix4(fix x,  fix y,  fix2 zw)
+    public fix4(fix x, fix y, fix2 zw)
     {
         this.x = x;
         this.y = y;
@@ -113,7 +113,7 @@ public struct fix4 : IEquatable<fix4>
     /// </summary>
     /// <param name="xy">X and Y components of the vector.</param>
     /// <param name="zw">Z and W components of the vector.</param>
-    public fix4(fix2 xy,  fix2 zw)
+    public fix4(fix2 xy, fix2 zw)
     {
         this.x = xy.x;
         this.y = xy.y;
@@ -132,24 +132,45 @@ public struct fix4 : IEquatable<fix4>
         this.w = v;
     }
 
+    /// <summary>Returns the fix element at a specified index.</summary>
+    unsafe public fix this[int index]
+    {
+        get
+        {
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+            if ((uint)index >= 4)
+                throw new System.ArgumentException("index must be between[0...3]");
+#endif
+            fixed (fix4* array = &this) { return ((fix*)array)[index]; }
+        }
+        set
+        {
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+            if ((uint)index >= 4)
+                throw new System.ArgumentException("index must be between[0...3]");
+#endif
+            fixed (fix* array = &x) { array[index] = value; }
+        }
+    }
+
     /// <summary>
     /// Computes the squared length of the vector.
     /// </summary>
     /// <returns>Squared length of the vector.</returns>
-    public fix lengthSquared => x * x + y * y + z * z + w * w;
+    public fix lengthSquared => (x * x) + (y * y) + (z * z) + (w * w);
 
     /// <summary>
     /// Computes the length of the vector.
     /// </summary>
     /// <returns>Length of the vector.</returns>
-    public fix length => fix.Sqrt(x * x + y * y + z * z + w * w);
+    public fix length => fix.Sqrt((x * x) + (y * y) + (z * z) + (w * w));
 
     /// <summary>
     /// Normalizes the vector.
     /// </summary>
     public void Normalize()
     {
-        fix inverse = F64.C1 / fix.Sqrt(x * x + y * y + z * z + w * w);
+        fix inverse = F64.C1 / fix.Sqrt((x * x) + (y * y) + (z * z) + (w * w));
         x *= inverse;
         y *= inverse;
         z *= inverse;
@@ -171,9 +192,9 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector in the product.</param>
     /// <param name="b">Second vector in the product.</param>
     /// <returns>Resulting dot product.</returns>
-    public static fix Dot(fix4 a,  fix4 b)
+    public static fix Dot(fix4 a, fix4 b)
     {
-        return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
+        return (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
     }
 
     /// <summary>
@@ -182,9 +203,9 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector in the product.</param>
     /// <param name="b">Second vector in the product.</param>
     /// <param name="product">Resulting dot product.</param>
-    public static void Dot(fix4 a,  fix4 b, out fix product)
+    public static void Dot(fix4 a, fix4 b, out fix product)
     {
-        product = a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
+        product = (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
     }
     /// <summary>
     /// Adds two vectors together.
@@ -192,7 +213,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector to add.</param>
     /// <param name="b">Second vector to add.</param>
     /// <param name="sum">Sum of the two vectors.</param>
-    public static void Add(fix4 a,  fix4 b, out fix4 sum)
+    public static void Add(fix4 a, fix4 b, out fix4 sum)
     {
         sum.x = a.x + b.x;
         sum.y = a.y + b.y;
@@ -205,7 +226,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">Vector to subtract from.</param>
     /// <param name="b">Vector to subtract from the first vector.</param>
     /// <param name="difference">Result of the subtraction.</param>
-    public static void Subtract(fix4 a,  fix4 b, out fix4 difference)
+    public static void Subtract(fix4 a, fix4 b, out fix4 difference)
     {
         difference.x = a.x - b.x;
         difference.y = a.y - b.y;
@@ -233,7 +254,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector to multiply.</param>
     /// <param name="b">Second vector to multiply.</param>
     /// <param name="result">Result of the componentwise multiplication.</param>
-    public static void Multiply(fix4 a,  fix4 b, out fix4 result)
+    public static void Multiply(fix4 a, fix4 b, out fix4 result)
     {
         result.x = a.x * b.x;
         result.y = a.y * b.y;
@@ -262,7 +283,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="v">Vector to scale.</param>
     /// <param name="f">Amount to scale.</param>
     /// <returns>Scaled vector.</returns>
-    public static fix4 operator *(fix4 v,  fix f)
+    public static fix4 operator *(fix4 v, fix f)
     {
         fix4 toReturn;
         toReturn.x = v.x * f;
@@ -277,7 +298,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="v">Vector to scale.</param>
     /// <param name="f">Amount to scale.</param>
     /// <returns>Scaled vector.</returns>
-    public static fix4 operator *(fix f,  fix4 v)
+    public static fix4 operator *(fix f, fix4 v)
     {
         fix4 toReturn;
         toReturn.x = v.x * f;
@@ -294,10 +315,10 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector to multiply.</param>
     /// <param name="b">Second vector to multiply.</param>
     /// <returns>Result of the componentwise multiplication.</returns>
-    public static fix4 operator *(fix4 a,  fix4 b)
+    public static fix4 operator *(fix4 a, fix4 b)
     {
         fix4 result;
-        Multiply(a,  b, out result);
+        Multiply(a, b, out result);
         return result;
     }
 
@@ -338,7 +359,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">Vector to subtract from.</param>
     /// <param name="b">Vector to subtract from the first vector.</param>
     /// <returns>Result of the subtraction.</returns>
-    public static fix4 operator -(fix4 a,  fix4 b)
+    public static fix4 operator -(fix4 a, fix4 b)
     {
         fix4 v;
         v.x = a.x - b.x;
@@ -353,7 +374,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector to add.</param>
     /// <param name="b">Second vector to add.</param>
     /// <returns>Sum of the two vectors.</returns>
-    public static fix4 operator +(fix4 a,  fix4 b)
+    public static fix4 operator +(fix4 a, fix4 b)
     {
         fix4 v;
         v.x = a.x + b.x;
@@ -379,7 +400,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector to test for equivalence.</param>
     /// <param name="b">Second vector to test for equivalence.</param>
     /// <returns>Whether the vectors were equivalent.</returns>
-    public static bool operator ==(fix4 a,  fix4 b)
+    public static bool operator ==(fix4 a, fix4 b)
     {
         return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w;
     }
@@ -389,27 +410,27 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector to test for inequivalence.</param>
     /// <param name="b">Second vector to test for inequivalence.</param>
     /// <returns>Whether the vectors were inequivalent.</returns>
-    public static bool operator !=(fix4 a,  fix4 b)
+    public static bool operator !=(fix4 a, fix4 b)
     {
         return a.x != b.x || a.y != b.y || a.z != b.z || a.w != b.w;
     }
 
-    public static bool4 operator >(fix4 a,  fix4 b)
+    public static bool4 operator >(fix4 a, fix4 b)
     {
         return new bool4(a.x > b.x, a.y > b.y, a.z > b.z, a.w > b.w);
     }
 
-    public static bool4 operator <(fix4 a,  fix4 b)
+    public static bool4 operator <(fix4 a, fix4 b)
     {
         return new bool4(a.x < b.x, a.y < b.y, a.z < b.z, a.w < b.w);
     }
 
-    public static bool4 operator >=(fix4 a,  fix4 b)
+    public static bool4 operator >=(fix4 a, fix4 b)
     {
         return new bool4(a.x >= b.x, a.y >= b.y, a.z >= b.z, a.w >= b.w);
     }
 
-    public static bool4 operator <=(fix4 a,  fix4 b)
+    public static bool4 operator <=(fix4 a, fix4 b)
     {
         return new bool4(a.x <= b.x, a.y <= b.y, a.z <= b.z, a.w <= b.w);
     }
@@ -460,13 +481,13 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <param name="distanceSquared">Squared distance between the two vectors.</param>
-    public static void DistanceSquared(fix4 a,  fix4 b, out fix distanceSquared)
+    public static void DistanceSquared(fix4 a, fix4 b, out fix distanceSquared)
     {
         fix x = a.x - b.x;
         fix y = a.y - b.y;
         fix z = a.z - b.z;
         fix w = a.w - b.w;
-        distanceSquared = x * x + y * y + z * z + w * w;
+        distanceSquared = (x * x) + (y * y) + (z * z) + (w * w);
     }
 
     /// <summary>
@@ -475,13 +496,13 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <param name="distance">Distance between the two vectors.</param>
-    public static void Distance(fix4 a,  fix4 b, out fix distance)
+    public static void Distance(fix4 a, fix4 b, out fix distance)
     {
         fix x = a.x - b.x;
         fix y = a.y - b.y;
         fix z = a.z - b.z;
         fix w = a.w - b.w;
-        distance = fix.Sqrt(x * x + y * y + z * z + w * w);
+        distance = fix.Sqrt((x * x) + (y * y) + (z * z) + (w * w));
     }
     /// <summary>
     /// Computes the distance between two two vectors.
@@ -489,10 +510,10 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First vector.</param>
     /// <param name="b">Second vector.</param>
     /// <returns>Distance between the two vectors.</returns>
-    public static fix Distance(fix4 a,  fix4 b)
+    public static fix Distance(fix4 a, fix4 b)
     {
         fix toReturn;
-        Distance(a,  b, out toReturn);
+        Distance(a, b, out toReturn);
         return toReturn;
     }
 
@@ -558,7 +579,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="result">Normalized vector.</param>
     public static void Normalize(fix4 v, out fix4 result)
     {
-        fix inverse = F64.C1 / fix.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
+        fix inverse = F64.C1 / fix.Sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z) + (v.w * v.w));
         result.x = v.x * inverse;
         result.y = v.y * inverse;
         result.z = v.z * inverse;
@@ -622,7 +643,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <param name="min">Vector containing the lesser values of each vector.</param>
-    public static void Min(fix4 a,  fix4 b, out fix4 min)
+    public static void Min(fix4 a, fix4 b, out fix4 min)
     {
         min.x = a.x < b.x ? a.x : b.x;
         min.y = a.y < b.y ? a.y : b.y;
@@ -636,10 +657,10 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <returns>Vector containing the lesser values of each vector.</returns>
-    public static fix4 Min(fix4 a,  fix4 b)
+    public static fix4 Min(fix4 a, fix4 b)
     {
         fix4 result;
-        Min(a,  b, out result);
+        Min(a, b, out result);
         return result;
     }
 
@@ -650,7 +671,7 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <param name="max">Vector containing the greater values of each vector.</param>
-    public static void Max(fix4 a,  fix4 b, out fix4 max)
+    public static void Max(fix4 a, fix4 b, out fix4 max)
     {
         max.x = a.x > b.x ? a.x : b.x;
         max.y = a.y > b.y ? a.y : b.y;
@@ -664,10 +685,10 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="a">First input vector to compare values from.</param>
     /// <param name="b">Second input vector to compare values from.</param>
     /// <returns>Vector containing the greater values of each vector.</returns>
-    public static fix4 Max(fix4 a,  fix4 b)
+    public static fix4 Max(fix4 a, fix4 b)
     {
         fix4 result;
-        Max(a,  b, out result);
+        Max(a, b, out result);
         return result;
     }
 
@@ -678,10 +699,10 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="end">Ending location of the interpolation.</param>
     /// <param name="interpolationAmount">Amount of the end location to use.</param>
     /// <returns>Interpolated intermediate state.</returns>
-    public static fix4 Lerp(fix4 start,  fix4 end,  fix interpolationAmount)
+    public static fix4 Lerp(fix4 start, fix4 end, fix interpolationAmount)
     {
         fix4 toReturn;
-        Lerp(start,  end, interpolationAmount, out toReturn);
+        Lerp(start, end, interpolationAmount, out toReturn);
         return toReturn;
     }
     /// <summary>
@@ -691,13 +712,13 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="end">Ending location of the interpolation.</param>
     /// <param name="interpolationAmount">Amount of the end location to use.</param>
     /// <param name="result">Interpolated intermediate state.</param>
-    public static void Lerp(fix4 start,  fix4 end,  fix interpolationAmount, out fix4 result)
+    public static void Lerp(fix4 start, fix4 end, fix interpolationAmount, out fix4 result)
     {
         fix startAmount = F64.C1 - interpolationAmount;
-        result.x = start.x * startAmount + end.x * interpolationAmount;
-        result.y = start.y * startAmount + end.y * interpolationAmount;
-        result.z = start.z * startAmount + end.z * interpolationAmount;
-        result.w = start.w * startAmount + end.w * interpolationAmount;
+        result.x = (start.x * startAmount) + (end.x * interpolationAmount);
+        result.y = (start.y * startAmount) + (end.y * interpolationAmount);
+        result.z = (start.z * startAmount) + (end.z * interpolationAmount);
+        result.w = (start.w * startAmount) + (end.w * interpolationAmount);
     }
 
     /// <summary>
@@ -709,18 +730,18 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="tangent2">Tangent associated with the second position.</param>
     /// <param name="interpolationAmount">Amount of the second point to use.</param>
     /// <param name="result">Interpolated intermediate state.</param>
-    public static void Hermite(fix4 value1,  fix4 tangent1,  fix4 value2,  fix4 tangent2,  fix interpolationAmount, out fix4 result)
+    public static void Hermite(fix4 value1, fix4 tangent1, fix4 value2, fix4 tangent2, fix interpolationAmount, out fix4 result)
     {
         fix weightSquared = interpolationAmount * interpolationAmount;
         fix weightCubed = interpolationAmount * weightSquared;
-        fix value1Blend = F64.C2 * weightCubed - F64.C3 * weightSquared + F64.C1;
-        fix tangent1Blend = weightCubed - F64.C2 * weightSquared + interpolationAmount;
-        fix value2Blend = -2 * weightCubed + F64.C3 * weightSquared;
+        fix value1Blend = (F64.C2 * weightCubed) - (F64.C3 * weightSquared) + F64.C1;
+        fix tangent1Blend = weightCubed - (F64.C2 * weightSquared) + interpolationAmount;
+        fix value2Blend = (-2 * weightCubed) + (F64.C3 * weightSquared);
         fix tangent2Blend = weightCubed - weightSquared;
-        result.x = value1.x * value1Blend + value2.x * value2Blend + tangent1.x * tangent1Blend + tangent2.x * tangent2Blend;
-        result.y = value1.y * value1Blend + value2.y * value2Blend + tangent1.y * tangent1Blend + tangent2.y * tangent2Blend;
-        result.z = value1.z * value1Blend + value2.z * value2Blend + tangent1.z * tangent1Blend + tangent2.z * tangent2Blend;
-        result.w = value1.w * value1Blend + value2.w * value2Blend + tangent1.w * tangent1Blend + tangent2.w * tangent2Blend;
+        result.x = (value1.x * value1Blend) + (value2.x * value2Blend) + (tangent1.x * tangent1Blend) + (tangent2.x * tangent2Blend);
+        result.y = (value1.y * value1Blend) + (value2.y * value2Blend) + (tangent1.y * tangent1Blend) + (tangent2.y * tangent2Blend);
+        result.z = (value1.z * value1Blend) + (value2.z * value2Blend) + (tangent1.z * tangent1Blend) + (tangent2.z * tangent2Blend);
+        result.w = (value1.w * value1Blend) + (value2.w * value2Blend) + (tangent1.w * tangent1Blend) + (tangent2.w * tangent2Blend);
     }
     /// <summary>
     /// Computes an intermediate location using hermite interpolation.
@@ -731,10 +752,10 @@ public struct fix4 : IEquatable<fix4>
     /// <param name="tangent2">Tangent associated with the second position.</param>
     /// <param name="interpolationAmount">Amount of the second point to use.</param>
     /// <returns>Interpolated intermediate state.</returns>
-    public static fix4 Hermite(fix4 value1,  fix4 tangent1,  fix4 value2,  fix4 tangent2,  fix interpolationAmount)
+    public static fix4 Hermite(fix4 value1, fix4 tangent1, fix4 value2, fix4 tangent2, fix interpolationAmount)
     {
         fix4 toReturn;
-        Hermite(value1,  tangent1,  value2,  tangent2, interpolationAmount, out toReturn);
+        Hermite(value1, tangent1, value2, tangent2, interpolationAmount, out toReturn);
         return toReturn;
     }
 }
