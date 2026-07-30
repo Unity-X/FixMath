@@ -10,9 +10,6 @@ public struct FixRandom
     public uint State => _random.state;
 
     /// <summary>Initialises a new instance using an int value as seed.</summary>
-    public FixRandom(int seed) : this((uint)seed) { }
-
-    /// <summary>Initialises a new instance using an int value as seed.</summary>
     public FixRandom(uint seed)
     {
         _random = new(seed);
@@ -30,6 +27,9 @@ public struct FixRandom
     /// <returns>A uniformly random unsigned integer.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public uint NextUInt() => _random.NextUInt();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public uint NextSeed() => _random.NextUInt();
 
     /// <summary>Returns a uniformly random int value in the interval [-2147483647, 2147483647].</summary>
     /// <returns>A uniformly random integer value.</returns>
